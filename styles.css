@@ -436,55 +436,11 @@ textarea {
   isolation: isolate;
   overflow-x: clip;
   display: grid;
-  gap: var(--space-6);
-  align-items: center;
+  place-items: center;
+  min-height: 70vh;
   max-width: var(--content);
   margin-inline: auto;
   padding: var(--space-7) var(--gutter);
-}
-
-.auth__intro {
-  display: grid;
-  gap: var(--space-4);
-  justify-items: start;
-}
-
-.eyebrow {
-  padding: var(--space-1) var(--space-3);
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: var(--surface);
-  color: var(--ink-muted);
-  font-size: var(--step--1);
-}
-
-.display {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0 var(--space-3);
-  font-size: var(--step-4);
-}
-
-.display__paren {
-  font-size: 1.1em;
-  color: var(--ink-muted);
-}
-
-.lede {
-  max-width: 36rem;
-  color: var(--ink-muted);
-}
-
-.feature-list {
-  display: grid;
-  gap: var(--space-2);
-  max-width: 36rem;
-}
-
-.feature-list li {
-  padding-left: var(--space-5);
-  background: no-repeat left 0.35em / 1em url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M2 14C2 6 7 2 14 2c0 7-4 12-12 12z' fill='%237f9658'/%3E%3C/svg%3E");
 }
 
 .auth__card {
@@ -492,7 +448,6 @@ textarea {
   gap: var(--space-5);
   width: 100%;
   max-width: 30rem;
-  justify-self: center;
 }
 
 .form__title {
@@ -2092,11 +2047,6 @@ textarea {
 @media (min-width: 64em) {
   :root {
     --gutter: 2rem;
-  }
-
-  .auth {
-    grid-template-columns: 1.2fr 1fr;
-    min-height: 80vh;
   }
 
   .split {
