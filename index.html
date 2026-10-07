@@ -491,12 +491,46 @@
         <section class="section section--sky" aria-labelledby="planner-title">
           <svg class="botanical botanical--edge-left" aria-hidden="true" focusable="false"><use href="#branch"/></svg>
           <header class="section__header">
-            <h2 id="planner-title" class="section__title">The week <em>on the menu</em></h2>
-            <p class="section__intro">Choose a recipe for each meal. Recipes that can't be made safe for your allergies are unavailable.</p>
+            <h2 id="planner-title" class="section__title"><span data-day-label></span> <em>on the menu</em></h2>
+            <p id="planner-intro" class="section__intro">Drag recipes from the shelf into Breakfast, Lunch or Dinner, and stack as many as you like: drinks, sides, desserts and snacks. No mouse? Select a recipe on the shelf, then choose “Add here”; use “Move to” to change a dish's meal.</p>
           </header>
-          <div id="planner-grid" class="card-grid"></div>
-          <div class="button-row button-row--center">
-            <button type="button" id="clear-week" class="btn btn--secondary">Clear week</button>
+          <div id="planner-layout" class="planner-layout">
+            <section class="recipe-palette" aria-labelledby="palette-title">
+              <div class="palette-header">
+                <h3 id="palette-title">Recipe shelf</h3>
+                <button type="button" id="palette-toggle" class="btn btn--ghost palette-toggle" aria-expanded="true" aria-controls="palette-body">
+                  <span id="palette-toggle-label">Hide</span><span class="sr-only"> recipe shelf</span>
+                </button>
+              </div>
+              <div id="palette-body" class="palette-body">
+                <div class="field">
+                  <label for="palette-search">Search recipes</label>
+                  <input type="search" id="palette-search" autocomplete="off">
+                </div>
+                <fieldset class="field-group">
+                  <legend class="sr-only">Filter by course</legend>
+                  <div id="palette-courses" class="palette-courses"></div>
+                </fieldset>
+                <p id="palette-hint" class="palette-hint">Drag onto a meal, or select and then choose “Add here”. Escape cancels.</p>
+                <p id="palette-count" class="palette-hint" aria-live="polite"></p>
+                <ul id="palette-list" class="palette-list" aria-label="Recipes"></ul>
+              </div>
+            </section>
+            <div class="planner-day">
+              <section id="day-totals" class="card day-totals" aria-labelledby="day-totals-title">
+                <div class="day-totals__header">
+                  <h3 id="day-totals-title">Daily nutrition totals: <span data-day-label></span></h3>
+                  <p id="day-totals-note" class="meta"></p>
+                </div>
+                <div id="day-totals-body" class="day-totals__body"></div>
+                <p class="field__hint">Sugar counts all sugars in the food, a stricter stand-in for the added-sugar limit. Totals update as you add, move or remove dishes.</p>
+              </section>
+              <ol id="planner-slots" class="slot-list" aria-label="Meals for the selected day"></ol>
+              <div class="button-row">
+                <button type="button" id="clear-day" class="btn btn--secondary">Clear this day</button>
+                <button type="button" id="clear-week" class="btn btn--ghost btn--danger">Clear week</button>
+              </div>
+            </div>
           </div>
         </section>
         <section class="section" aria-labelledby="schedule-title">

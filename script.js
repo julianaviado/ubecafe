@@ -372,7 +372,6 @@ const DAY_LABELS = Object.fromEntries(DAYS.map((d) => [d, d[0].toUpperCase() + d
 const MEAL_SLOTS = [
   { id: 'breakfast', label: 'Breakfast', time: '07:30', display: '7:30 AM' },
   { id: 'lunch', label: 'Lunch', time: '12:30', display: '12:30 PM' },
-  { id: 'snack', label: 'Afternoon Snack', time: '16:00', display: '4:00 PM' },
   { id: 'dinner', label: 'Dinner', time: '19:00', display: '7:00 PM' },
 ];
 const SLOT_BY_ID = Object.fromEntries(MEAL_SLOTS.map((s) => [s.id, s]));
@@ -395,63 +394,121 @@ const SUPPLEMENT_BY_ID = Object.fromEntries(SUPPLEMENTS.map((s) => [s.id, s]));
 
 const SEED_RECIPES = [
   {
-    id: 'seed-oats', title: 'Berry Chia Overnight Oats', servings: 1,
+    id: 'seed-oats', title: 'Berry Chia Overnight Oats', servings: 1, prepMinutes: 5,
     ingredientsText: '1/2 cup rolled oats\n1/2 cup milk\n1/2 cup greek yogurt\n1 tbsp chia seeds\n1/2 cup blueberries\n1 tsp honey',
     instructions: 'Stir everything together in a jar.\nRefrigerate overnight and serve cold.',
   },
   {
-    id: 'seed-scramble', title: 'Garden Veggie Egg Scramble', servings: 1,
+    id: 'seed-scramble', title: 'Garden Veggie Egg Scramble', servings: 1, prepMinutes: 10,
     ingredientsText: '3 large eggs\n1 cup spinach\n1/2 red bell pepper, diced\n1 slice whole wheat bread\n1 tsp olive oil',
     instructions: 'Sauté pepper in oil for 3 minutes.\nAdd spinach until wilted, then scramble in the eggs.\nServe with toast.',
   },
   {
-    id: 'seed-salmon', title: 'Lemon Herb Salmon & Quinoa', servings: 2,
+    id: 'seed-salmon', title: 'Lemon Herb Salmon & Quinoa', servings: 2, prepMinutes: 25,
     ingredientsText: '2 salmon fillets\n1/2 cup quinoa\n2 cups broccoli\n1 tbsp olive oil\n1 lemon\n2 cloves garlic, minced',
     instructions: 'Cook quinoa in 1 cup water for 15 minutes.\nRoast salmon and broccoli with oil, garlic and lemon at 200°C for 14 minutes.',
   },
   {
-    id: 'seed-soup', title: 'Lentil & Spinach Soup', servings: 4,
+    id: 'seed-soup', title: 'Lentil & Spinach Soup', servings: 4, prepMinutes: 35,
     ingredientsText: '1 cup red lentils\n4 cups vegetable broth\n1 onion, chopped\n2 carrots, diced\n3 cloves garlic\n3 cups spinach\n1 can diced tomatoes\n1 tsp cumin\n1 tbsp olive oil\n1/2 tsp salt',
     instructions: 'Soften onion, carrot and garlic in oil.\nAdd lentils, broth, tomatoes and cumin; simmer 20 minutes.\nStir in spinach and salt.',
   },
   {
-    id: 'seed-chicken', title: 'Roast Chicken & Sweet Potato Plate', servings: 2,
+    id: 'seed-chicken', title: 'Roast Chicken & Sweet Potato Plate', servings: 2, prepMinutes: 35,
     ingredientsText: '300 g chicken breast\n2 sweet potatoes, cubed\n2 cups broccoli\n1 tbsp olive oil\n1/2 tsp black pepper',
     instructions: 'Toss everything with oil and pepper.\nRoast at 210°C for 25 minutes.',
   },
   {
-    id: 'seed-bowl', title: 'Black Bean Burrito Bowl', servings: 2,
+    id: 'seed-bowl', title: 'Black Bean Burrito Bowl', servings: 2, prepMinutes: 20,
     ingredientsText: '1 can black beans, drained\n1/2 cup brown rice\n1 avocado\n1 tomato, diced\n1/4 cup cheddar cheese\n1/2 onion\n1 tsp cumin\n1 lime',
     instructions: 'Cook rice.\nWarm beans with cumin.\nAssemble bowls with avocado, tomato, onion, cheese and lime.',
   },
   {
-    id: 'seed-yogurt', title: 'Greek Yogurt Seed Crunch', servings: 1,
+    id: 'seed-yogurt', title: 'Greek Yogurt Seed Crunch', servings: 1, category: 'snack', prepMinutes: 5,
     ingredientsText: '1 cup greek yogurt\n1/2 cup strawberries\n1 tbsp pumpkin seeds\n1 tbsp walnuts',
     instructions: 'Layer yogurt, berries, seeds and walnuts in a bowl.',
   },
   {
-    id: 'seed-apple', title: 'Apple & Peanut Butter', servings: 1,
+    id: 'seed-apple', title: 'Apple & Peanut Butter', servings: 1, category: 'snack', prepMinutes: 3,
     ingredientsText: '1 apple, sliced\n2 tbsp peanut butter\n1 pinch cinnamon',
     instructions: 'Slice apple and serve with peanut butter dusted with cinnamon.',
   },
+  {
+    id: 'seed-juice', title: 'Orange Ginger Sunrise Juice', servings: 2, category: 'drink', prepMinutes: 10,
+    ingredientsText: '1/4 cup orange juice\n3 tbsp lemon juice\n1 small apple, cored and quartered\n1 tbsp fresh ginger, peeled\n4 whole carrots',
+    instructions: 'Juice the apple, ginger and carrots.\nStir in the orange and lemon juice and serve over ice.',
+  },
+  {
+    id: 'seed-broccoli', title: 'Garlic Roasted Broccoli', servings: 2, category: 'side', prepMinutes: 20,
+    ingredientsText: '3 cups broccoli florets\n1 tbsp olive oil\n2 cloves garlic, sliced\n1 pinch salt',
+    instructions: 'Toss everything together and roast at 220°C for 15 minutes.',
+  },
+  {
+    id: 'seed-pudding', title: 'Strawberry Chia Pudding', servings: 2, category: 'dessert', prepMinutes: 5,
+    ingredientsText: '1 cup milk\n3 tbsp chia seeds\n1 cup strawberries\n1 tsp honey',
+    instructions: 'Whisk milk, chia and honey; chill for 4 hours.\nTop with sliced strawberries.',
+  },
 ];
 
+/** Course types for dishes; several dishes can be stacked in one meal slot. */
+const COURSES = {
+  drink: { label: 'Drink', plural: 'Drinks' },
+  main: { label: 'Main dish', plural: 'Main Dishes' },
+  side: { label: 'Side dish', plural: 'Side Dishes' },
+  dessert: { label: 'Dessert', plural: 'Desserts' },
+  snack: { label: 'Snack', plural: 'Snacks' },
+};
+
+/** Decorative course icons (24×24 line art); always paired with a visible course label. */
+const COURSE_ICONS = {
+  drink: '<path d="M7 3h10l-1.5 17a1 1 0 0 1-1 .9h-5a1 1 0 0 1-1-.9L7 3Zm.4 5h9.2M14 3l2-2"/>',
+  main: '<circle cx="12" cy="13" r="7"/><circle cx="12" cy="13" r="3.5"/><path d="M3 4v6m0 0v11M5 4v4a2 2 0 0 1-4 0V4M21 4c-2 1-2 5-2 7h2v10"/>',
+  side: '<path d="M4 20C4 11 10 5 20 4c0 10-6 16-16 16Zm0 0 9-9"/>',
+  dessert: '<path d="M4 12h16v8H4zM4 16h16M8 12V9a4 4 0 0 1 8 0v3M12 5V3"/>',
+  snack: '<path d="M12 7c-3-2-8-1-8 5 0 5 3 9 5 9 1 0 2-1 3-1s2 1 3 1c2 0 5-4 5-9 0-6-5-7-8-5Zm0 0c0-2 1-4 3-4"/>',
+};
+const courseIcon = (kind) => `<svg class="course-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${COURSE_ICONS[kind]}</svg>`;
+const courseBadge = (kind) => `<span class="course-badge course-badge--${kind}">${courseIcon(kind)}${COURSES[kind].label}</span>`;
+const formatPrep = (minutes) => {
+  if (!minutes) return 'Prep time not set';
+  const h = Math.floor(minutes / 60);
+  const m = minutes % 60;
+  return `${h ? `${h} h ` : ''}${m ? `${m} min` : ''}`.trim();
+};
+const courseOf = (recipe) => recipe.category ?? 'main';
+
+/** Seed week: plan[day][slot] is a list of { recipeId, kind } dishes. */
 const SEED_PLAN = (() => {
-  const rotation = [
-    ['seed-oats', 'seed-bowl', 'seed-yogurt', 'seed-salmon'],
-    ['seed-scramble', 'seed-soup', 'seed-apple', 'seed-chicken'],
-  ];
-  return Object.fromEntries(DAYS.map((day, i) => {
-    const row = rotation[i % 2];
-    return [day, Object.fromEntries(MEAL_SLOTS.map((slot, j) => [slot.id, row[j]]))];
-  }));
+  const dish = (recipeId, kind = 'main') => ({ recipeId, kind });
+  // Built per day so no two days share (and accidentally co-edit) the same lists.
+  const rotation = (even) => (even
+    ? { breakfast: [dish('seed-oats'), dish('seed-juice', 'drink')], lunch: [dish('seed-bowl'), dish('seed-yogurt', 'snack')], dinner: [dish('seed-salmon'), dish('seed-broccoli', 'side')] }
+    : { breakfast: [dish('seed-scramble')], lunch: [dish('seed-soup'), dish('seed-apple', 'snack')], dinner: [dish('seed-chicken'), dish('seed-pudding', 'dessert')] });
+  return Object.fromEntries(DAYS.map((day, i) => [day, rotation(i % 2 === 0)]));
 })();
+
+/**
+ * Upgrades older saved plans: one recipe id per slot becomes a dish list, and the
+ * former Afternoon Snack slot is folded into lunch as snack-course dishes.
+ */
+const normalizePlan = (plan) => {
+  const toDishes = (value, kind = 'main') => {
+    if (Array.isArray(value)) return value;
+    return value ? [{ recipeId: value, kind }] : [];
+  };
+  return Object.fromEntries(DAYS.map((day) => {
+    const slots = Object.fromEntries(MEAL_SLOTS.map((slot) => [slot.id, toDishes(plan?.[day]?.[slot.id])]));
+    const snacks = toDishes(plan?.[day]?.snack, 'snack').map((d) => ({ ...d, kind: d.kind === 'main' ? 'snack' : d.kind }));
+    slots.lunch = [...slots.lunch, ...snacks];
+    return [day, slots];
+  }));
+};
 
 /** Deterministic sample texts returned by the simulated OCR step. */
 const OCR_SAMPLES = [
-  'Title: Kale & Chickpea Power Salad\nServings: 2\nIngredients:\n- 3 cups kale\n- 1 can chickpeas, drained\n- 1/2 cup quinoa\n- 1 red bell pepper\n- 2 tbsp olive oil\n- 1 lemon\n- 2 tbsp pumpkin seeds\nInstructions:\n1. Cook quinoa and let it cool.\n2. Massage kale with oil and lemon.\n3. Toss with chickpeas, pepper, quinoa and seeds.',
-  'Title: Sheet-Pan Salmon & Sweet Potato\nServes 2\nIngredients\n• 2 salmon fillets (6 oz each)\n• 2 sweet potatoes\n• 2 cups broccoli\n• 1 tbsp olive oil\n• 1/2 tsp black pepper\nDirections\n1. Cube the sweet potatoes and roast 15 minutes at 220°C.\n2. Add salmon and broccoli; roast 12 minutes more.',
-  'Title: Peanut Butter Banana Oat Smoothie\nServings: 1\nIngredients:\n- 1 banana\n- 1 cup milk\n- 1/4 cup rolled oats\n- 1 tbsp peanut butter\n- 1 tsp chia seeds\nInstructions:\n1. Blend everything until smooth.',
+  'Title: Kale & Chickpea Power Salad\nServings: 2\nPrep time: 20 min\nIngredients:\n- 3 cups kale\n- 1 can chickpeas, drained\n- 1/2 cup quinoa\n- 1 red bell pepper\n- 2 tbsp olive oil\n- 1 lemon\n- 2 tbsp pumpkin seeds\nInstructions:\n1. Cook quinoa and let it cool.\n2. Massage kale with oil and lemon.\n3. Toss with chickpeas, pepper, quinoa and seeds.',
+  'Title: Sheet-Pan Salmon & Sweet Potato\nServes 2\nTotal time: 35 minutes\nIngredients\n• 2 salmon fillets (6 oz each)\n• 2 sweet potatoes\n• 2 cups broccoli\n• 1 tbsp olive oil\n• 1/2 tsp black pepper\nDirections\n1. Cube the sweet potatoes and roast 15 minutes at 220°C.\n2. Add salmon and broccoli; roast 12 minutes more.',
+  'Title: Peanut Butter Banana Oat Smoothie\nServings: 1\nPrep: 5 min\nIngredients:\n- 1 banana\n- 1 cup milk\n- 1/4 cup rolled oats\n- 1 tbsp peanut butter\n- 1 tsp chia seeds\nInstructions:\n1. Blend everything until smooth.',
 ];
 
 const DEFAULT_PROFILE = {
@@ -462,7 +519,7 @@ const DEFAULT_PROFILE = {
 };
 const DEFAULT_SUPPLEMENTS = { selected: ['vitaminD3', 'iron', 'magnesium'], coffeeAtBreakfast: true };
 const DEFAULT_GROCERY = { household: 1, checked: [] };
-const DEFAULT_UI = { tab: 'tab-dashboard' };
+const DEFAULT_UI = { tab: 'tab-dashboard', shelfOpen: true };
 
 /* =========================================================
  * 2. Utilities & Storage
@@ -787,6 +844,7 @@ class RecipeManager {
   static parseRecipeText(text) {
     let title = '';
     let servings = null;
+    let prepMinutes = null;
     let mode = null;
     const ingredients = [];
     const instructions = [];
@@ -794,8 +852,13 @@ class RecipeManager {
     text.split(/\r?\n/).map((l) => l.trim()).filter(Boolean).forEach((line) => {
       const titleMatch = line.match(/^title\s*[:-]\s*(.+)$/i);
       const servingsMatch = line.match(/^(?:servings?|serves|yield|makes)\s*[:-]?\s*(\d+)/i);
+      const timeMatch = line.match(/^(?:prep(?:aration)?|total|ready in)(?:\s*time)?\s*[:-]\s*(.+)$/i);
       if (titleMatch) {
         title = titleMatch[1];
+      } else if (timeMatch) {
+        const hours = Number(timeMatch[1].match(/(\d+)\s*h/i)?.[1] ?? 0);
+        const mins = Number(timeMatch[1].match(/(\d+)\s*m/i)?.[1] ?? 0);
+        prepMinutes = hours * 60 + mins || null;
       } else if (servingsMatch) {
         servings = Number(servingsMatch[1]);
       } else if (/^ingredients?\s*:?$/i.test(line)) {
@@ -811,7 +874,7 @@ class RecipeManager {
       }
     });
 
-    return { title, servings: servings ?? 1, ingredientsText: ingredients.join('\n'), instructions: instructions.join('\n') };
+    return { title, servings: servings ?? 1, prepMinutes, ingredientsText: ingredients.join('\n'), instructions: instructions.join('\n') };
   }
 }
 
@@ -1097,7 +1160,7 @@ class ScheduleOptimizer {
     // Rule 4: calcium is separated from iron.
     let calciumSlot = null;
     if (has('calcium')) {
-      calciumSlot = ['snack', 'lunch', 'breakfast', 'dinner'].find((id) => id !== ironSlot);
+      calciumSlot = ['lunch', 'breakfast', 'dinner'].find((id) => id !== ironSlot);
       plan[calciumSlot].push({
         id: 'calcium',
         reason: ironSlot
@@ -1113,7 +1176,7 @@ class ScheduleOptimizer {
 
     // Rule 6: zinc away from both iron and calcium.
     if (has('zinc')) {
-      const slot = ['lunch', 'dinner', 'breakfast', 'snack'].find((id) => id !== ironSlot && id !== calciumSlot);
+      const slot = ['lunch', 'dinner', 'breakfast'].find((id) => id !== ironSlot && id !== calciumSlot) ?? 'dinner';
       plan[slot].push({ id: 'zinc', reason: 'Kept apart from iron and calcium, which compete with zinc for absorption; taken with food to avoid nausea.' });
     }
 
@@ -1149,8 +1212,8 @@ class GroceryAggregator {
   static aggregate(plan, recipesById, household, supplementIds, analyze) {
     const items = new Map();
 
-    DAYS.forEach((day) => MEAL_SLOTS.forEach((slot) => {
-      const recipe = recipesById.get(plan[day]?.[slot.id]);
+    DAYS.forEach((day) => MEAL_SLOTS.forEach((slot) => plan[day][slot.id].forEach(({ recipeId }) => {
+      const recipe = recipesById.get(recipeId);
       if (!recipe) return;
       const analysis = analyze(recipe);
       if (!analysis.isSafe) return;
@@ -1170,7 +1233,7 @@ class GroceryAggregator {
           items.set(key, entry);
         }
       });
-    }));
+    })));
 
     supplementIds.forEach((id) => {
       items.set(`s:${id}`, { key: `s:${id}`, name: SUPPLEMENT_BY_ID[id].label, aisle: SPICES, note: 'check supply' });
@@ -1306,7 +1369,7 @@ const state = {
 const loadUserData = () => ({
   profile: { ...DEFAULT_PROFILE, ...Storage.load(Storage.KEYS.profile, {}) },
   recipes: Storage.load(Storage.KEYS.recipes, SEED_RECIPES),
-  plan: Storage.load(Storage.KEYS.plan, SEED_PLAN),
+  plan: normalizePlan(Storage.load(Storage.KEYS.plan, SEED_PLAN)),
   supplements: Storage.load(Storage.KEYS.supplements, DEFAULT_SUPPLEMENTS),
   grocery: Storage.load(Storage.KEYS.grocery, DEFAULT_GROCERY),
   ui: Storage.load(Storage.KEYS.ui, DEFAULT_UI),
@@ -1320,20 +1383,31 @@ const round1 = (n) => Math.round(n * 10) / 10;
 const KG_PER_LB = 0.45359237;
 
 /**
- * Each slot's planned recipe and per-serving nutrients for a day. Recipes that
- * cannot be made safe are marked `blocked` and contribute nothing.
+ * Each slot's dishes for a day with per-serving nutrients. Dishes that cannot be
+ * made safe are marked `blocked` and contribute nothing; `nutrients` sums the rest.
  */
 const mealsForDay = (day) => {
   const byId = recipesById();
   return Object.fromEntries(MEAL_SLOTS.map((slot) => {
-    const recipe = byId.get(state.plan[day]?.[slot.id]);
-    if (!recipe) return [slot.id, null];
-    const analysis = analyzeForUser(recipe);
+    const items = state.plan[day][slot.id].map((entry, index) => {
+      const recipe = byId.get(entry.recipeId);
+      if (!recipe) return null;
+      const analysis = analyzeForUser(recipe);
+      return {
+        recipe,
+        index,
+        kind: entry.kind,
+        blocked: !analysis.isSafe,
+        flagged: analysis.flagged,
+        nutrients: analysis.isSafe ? analysis.perServing : emptyNutrients(),
+      };
+    }).filter(Boolean);
+    if (!items.length) return [slot.id, null];
+    const safe = items.filter((item) => !item.blocked);
     return [slot.id, {
-      recipe,
-      blocked: !analysis.isSafe,
-      flagged: analysis.flagged,
-      nutrients: analysis.isSafe ? analysis.perServing : emptyNutrients(),
+      items,
+      hasSafe: safe.length > 0,
+      nutrients: safe.reduce((sum, item) => addNutrients(sum, item.nutrients), emptyNutrients()),
     }];
   }));
 };
@@ -1556,6 +1630,17 @@ class RecipeImporter {
             <input type="number" id="${p}-servings" min="1" max="50" step="1" value="1" inputmode="numeric" required aria-describedby="${p}-servings-error">
             <p id="${p}-servings-error" class="field-error"></p>
           </div>
+          <div class="field">
+            <label for="${p}-course">Course</label>
+            <select id="${p}-course">
+              ${Object.entries(COURSES).map(([id, c]) => `<option value="${id}" ${id === 'main' ? 'selected' : ''}>${c.label}</option>`).join('')}
+            </select>
+          </div>
+          <div class="field">
+            <label for="${p}-prep">Prep time <span class="field__hint">(min)</span></label>
+            <input type="number" id="${p}-prep" min="1" max="600" step="1" inputmode="numeric" aria-describedby="${p}-prep-error">
+            <p id="${p}-prep-error" class="field-error"></p>
+          </div>
         </div>
         <div class="form__grid">
           <div class="field">
@@ -1615,6 +1700,8 @@ class RecipeImporter {
       id: this.editingId ?? createId(),
       title: this.el('title').value.trim(),
       servings: Number(this.el('servings').value),
+      category: this.el('course').value,
+      prepMinutes: this.el('prep').value === '' ? null : Number(this.el('prep').value),
       ingredientsText: this.el('ingredients').value.trim(),
       instructions: this.el('instructions').value.trim(),
     };
@@ -1623,6 +1710,8 @@ class RecipeImporter {
   fillForm(recipe) {
     this.el('title').value = recipe.title;
     this.el('servings').value = recipe.servings;
+    this.el('course').value = courseOf(recipe);
+    this.el('prep').value = recipe.prepMinutes ?? '';
     this.el('ingredients').value = recipe.ingredientsText;
     this.el('instructions').value = recipe.instructions;
   }
@@ -1724,6 +1813,7 @@ class RecipeImporter {
       [this.el('title'), recipe.title.length > 0, 'Enter a recipe title.'],
       [this.el('servings'), recipe.servings >= 1 && recipe.servings <= 50, 'Enter servings between 1 and 50.'],
       [this.el('ingredients'), recipe.ingredientsText.length > 0, 'Add at least one ingredient.'],
+      [this.el('prep'), recipe.prepMinutes === null || (recipe.prepMinutes >= 1 && recipe.prepMinutes <= 600), 'Enter minutes between 1 and 600, or leave it blank.'],
     ];
     let first = null;
     checks.forEach(([input, ok, message]) => {
@@ -2055,7 +2145,7 @@ const RecipeLibrary = {
     if (!window.confirm(`Delete “${recipe.title}”? It will also be removed from your meal plan.`)) return;
     state.recipes = state.recipes.filter((r) => r.id !== recipe.id);
     DAYS.forEach((day) => MEAL_SLOTS.forEach((slot) => {
-      if (state.plan[day][slot.id] === recipe.id) state.plan[day][slot.id] = '';
+      state.plan[day][slot.id] = state.plan[day][slot.id].filter((dish) => dish.recipeId !== recipe.id);
     }));
     Storage.save(Storage.KEYS.recipes, state.recipes);
     Storage.save(Storage.KEYS.plan, state.plan);
@@ -2084,7 +2174,7 @@ const RecipeLibrary = {
         <li>
           <article class="card recipe-card">
             <h3>${title}</h3>
-            <p class="meta">${recipe.servings} serving${recipe.servings === 1 ? '' : 's'} · per serving${isSafe && flagged.length ? ', with your swaps' : ''}</p>
+            <p class="meta">${COURSES[courseOf(recipe)].label} · ${formatPrep(recipe.prepMinutes)} · ${recipe.servings} serving${recipe.servings === 1 ? '' : 's'} · per serving${isSafe && flagged.length ? ', with your swaps' : ''}</p>
             <dl class="macro-chips">
               <div><dt>kcal</dt><dd>${fmt(p.calories)}</dd></div>
               <div><dt>Protein</dt><dd>${fmt(p.protein)} g</dd></div>
@@ -2158,12 +2248,12 @@ const DashboardUI = {
     return pct < 80 ? ['warn', 'Low'] : ['ok', 'Met'];
   },
 
-  row(meta, value, target) {
+  row(meta, value, target, idPrefix = 'nutrient') {
     const pct = target > 0 ? Math.round((value / target) * 100) : 0;
     const width = Math.min(pct, 100);
     const [level, text] = this.status(meta, pct);
     const icon = { ok: '✓', warn: '!', danger: '✕' }[level];
-    const labelId = `nutrient-${meta.key}`;
+    const labelId = `${idPrefix}-${meta.key}`;
     return `
       <li class="nutrient">
         <div class="nutrient__head">
@@ -2180,13 +2270,14 @@ const DashboardUI = {
 
   render() {
     const meals = mealsForDay(state.viewDay);
-    const planned = Object.values(meals).filter((meal) => meal && !meal.blocked);
+    const planned = Object.values(meals).filter((meal) => meal?.hasSafe);
     const intake = planned.reduce((sum, m) => addNutrients(sum, m.nutrients), emptyNutrients());
+    const dishes = planned.reduce((count, m) => count + m.items.filter((item) => !item.blocked).length, 0);
     const { targets } = currentTargets();
     const lowCount = NUTRIENTS.filter((m) => m.group === 'micro' && intake[m.key] < targets[m.key] * 0.8).length;
 
     $('#dashboard-summary').textContent =
-      `${DAY_LABELS[state.viewDay]}: ${planned.length} of ${MEAL_SLOTS.length} meals planned, ${fmt(intake.calories)} kcal. ` +
+      `${DAY_LABELS[state.viewDay]}: ${planned.length} of ${MEAL_SLOTS.length} meals planned (${dishes} dish${dishes === 1 ? '' : 'es'}), ${fmt(intake.calories)} kcal. ` +
       `${lowCount} micronutrient${lowCount === 1 ? '' : 's'} below 80% of target.`;
     $('#macro-list').innerHTML = NUTRIENTS.filter((m) => m.group === 'macro').map((m) => this.row(m, intake[m.key], targets[m.key])).join('');
     $('#micro-list').innerHTML = NUTRIENTS.filter((m) => m.group === 'micro').map((m) => this.row(m, intake[m.key], targets[m.key])).join('');
@@ -2265,7 +2356,7 @@ const TargetsUI = {
 const RecommendationsUI = {
   render({ intake, targets, plannedCount }) {
     const recs = RecommendationEngine.recommend(intake, targets, plannedCount, SubstitutionEngine.restrictionsFor(state.profile));
-    const label = { high: 'High priority', medium: 'Suggested', info: 'Note' };
+    const label = { high: 'Biggest gap', medium: 'Suggested', info: 'Note' };
     const level = { high: 'danger', medium: 'warn', info: 'ok' };
     $('#recommendation-list').innerHTML = recs.map((rec) => `
       <li>
@@ -2282,46 +2373,311 @@ const RecommendationsUI = {
 
 /* ---------- Planner & schedule ---------- */
 
+/**
+ * Day planner with a collapsible recipe shelf. Mouse users drag recipes (or stacked
+ * dishes) into Breakfast, Lunch or Dinner; keyboard and touch users select a recipe
+ * with Enter, Space or a tap and choose "Add here", and move dishes with "Move to".
+ * Each slot stacks any number of dishes, and the day's totals update live.
+ */
 const PlannerUI = {
+  picked: null,
+  filter: { query: '', course: 'all' },
+  DRAG_TYPE: 'application/x-ubecafe-dish',
+
   init() {
-    $('#planner-grid').addEventListener('change', (e) => {
-      const { day, slot } = e.target.dataset;
-      state.plan[day][slot] = e.target.value;
-      Storage.save(Storage.KEYS.plan, state.plan);
-      App.renderNutrition();
-      GroceryUI.render();
+    $('#palette-courses').innerHTML = [['all', 'All'], ...Object.entries(COURSES).map(([id, c]) => [id, c.plural])].map(([id, label]) => `
+      <input type="radio" id="course-${id}" name="palette-course" value="${id}" ${id === 'all' ? 'checked' : ''}>
+      <label for="course-${id}">${label}</label>`).join('');
+    $('#palette-search').addEventListener('input', (e) => {
+      this.filter.query = e.target.value.trim().toLowerCase();
+      this.renderPalette();
+    });
+    $('#palette-courses').addEventListener('change', (e) => {
+      this.filter.course = e.target.value;
+      this.renderPalette();
+    });
+    $('#palette-toggle').addEventListener('click', () => {
+      state.ui = { ...state.ui, shelfOpen: !this.shelfOpen() };
+      Storage.save(Storage.KEYS.ui, state.ui);
+      this.syncShelf();
+    });
+
+    const palette = $('#palette-list');
+    const togglePick = (item) => {
+      if (item.getAttribute('aria-disabled') === 'true') return;
+      this.pick(this.picked === item.dataset.recipe ? null : item.dataset.recipe);
+      document.querySelector(`[data-recipe="${item.dataset.recipe}"]`)?.focus();
+    };
+    palette.addEventListener('click', (e) => {
+      const item = e.target.closest('[data-recipe]');
+      if (item) togglePick(item);
+    });
+    // Custom role="button": Enter and Space activate, like a native button.
+    palette.addEventListener('keydown', (e) => {
+      const item = e.target.closest('[data-recipe]');
+      if (!item || (e.key !== 'Enter' && e.key !== ' ')) return;
+      e.preventDefault();
+      togglePick(item);
+    });
+    palette.addEventListener('dragstart', (e) => {
+      const item = e.target.closest('[data-recipe]');
+      if (!item) return;
+      e.dataTransfer.setData(this.DRAG_TYPE, JSON.stringify({ recipeId: item.dataset.recipe }));
+      e.dataTransfer.effectAllowed = 'copy';
+    });
+
+    const slots = $('#planner-slots');
+    slots.addEventListener('dragstart', (e) => {
+      const dish = e.target.closest('[data-dish]');
+      if (!dish) return;
+      e.dataTransfer.setData(this.DRAG_TYPE, JSON.stringify({ from: { slot: dish.dataset.slot, index: Number(dish.dataset.index) } }));
+      e.dataTransfer.effectAllowed = 'move';
+    });
+    slots.addEventListener('dragover', (e) => {
+      const zone = e.target.closest('[data-dropzone]');
+      if (!zone || !e.dataTransfer.types.includes(this.DRAG_TYPE)) return;
+      e.preventDefault();
+      zone.classList.add('is-over');
+    });
+    slots.addEventListener('dragleave', (e) => {
+      const zone = e.target.closest('[data-dropzone]');
+      if (zone && !zone.contains(e.relatedTarget)) zone.classList.remove('is-over');
+    });
+    slots.addEventListener('drop', (e) => {
+      const zone = e.target.closest('[data-dropzone]');
+      if (!zone) return;
+      e.preventDefault();
+      zone.classList.remove('is-over');
+      const data = JSON.parse(e.dataTransfer.getData(this.DRAG_TYPE) || 'null');
+      if (data?.from) this.move(data.from, zone.dataset.dropzone);
+      else if (data?.recipeId) this.add(data.recipeId, zone.dataset.dropzone);
+    });
+    slots.addEventListener('click', (e) => {
+      const addButton = e.target.closest('[data-add-slot]');
+      const removeButton = e.target.closest('[data-remove]');
+      if (addButton) this.addPicked(addButton.dataset.addSlot);
+      if (removeButton) this.remove(removeButton.dataset.slot, Number(removeButton.dataset.index));
+    });
+    slots.addEventListener('change', (e) => {
+      if (!e.target.matches('[data-move]') || e.target.value === e.target.dataset.slot) return;
+      this.move({ slot: e.target.dataset.slot, index: Number(e.target.dataset.index) }, e.target.value, { focus: true });
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && this.picked) {
+        const id = this.picked;
+        this.pick(null);
+        document.querySelector(`[data-recipe="${id}"]`)?.focus();
+        announce('Selection cancelled.');
+      }
+    });
+    $('#clear-day').addEventListener('click', () => {
+      MEAL_SLOTS.forEach((slot) => { state.plan[state.viewDay][slot.id] = []; });
+      this.commit();
+      announce(`${DAY_LABELS[state.viewDay]} cleared.`);
     });
     $('#clear-week').addEventListener('click', () => {
       if (!window.confirm('Clear every meal from this week?')) return;
-      DAYS.forEach((day) => MEAL_SLOTS.forEach((slot) => { state.plan[day][slot.id] = ''; }));
-      Storage.save(Storage.KEYS.plan, state.plan);
-      App.renderAll();
+      DAYS.forEach((day) => MEAL_SLOTS.forEach((slot) => { state.plan[day][slot.id] = []; }));
+      this.commit();
       announce('Weekly plan cleared.');
     });
   },
 
+  shelfOpen() {
+    return state.ui.shelfOpen !== false;
+  },
+
+  syncShelf() {
+    const open = this.shelfOpen();
+    $('#palette-toggle').setAttribute('aria-expanded', String(open));
+    $('#palette-toggle-label').textContent = open ? 'Hide' : 'Show';
+    $('#palette-body').hidden = !open;
+    $('#planner-layout').classList.toggle('is-shelf-collapsed', !open);
+  },
+
+  dishes(slotId) {
+    return state.plan[state.viewDay][slotId];
+  },
+
+  dayLabel(slotId) {
+    return `${DAY_LABELS[state.viewDay]} ${SLOT_BY_ID[slotId].label.toLowerCase()}`;
+  },
+
+  /** One-line running total for announcements after each change. */
+  dayTotalText() {
+    const meals = Object.values(mealsForDay(state.viewDay)).filter((m) => m?.hasSafe);
+    const kcal = meals.reduce((sum, m) => sum + m.nutrients.calories, 0);
+    return `Day total ${fmt(kcal)} of ${fmt(currentTargets().targets.calories)} kcal.`;
+  },
+
+  /** Saves the plan, refreshes every dependent view (totals included) and optionally restores focus. */
+  commit(focusSelector) {
+    Storage.save(Storage.KEYS.plan, state.plan);
+    App.renderNutrition();
+    GroceryUI.render();
+    if (focusSelector) document.querySelector(focusSelector)?.focus();
+  },
+
+  pick(recipeId) {
+    this.picked = recipeId;
+    this.renderPalette();
+    this.renderSlots();
+    if (recipeId) {
+      const recipe = state.recipes.find((r) => r.id === recipeId);
+      announce(`Selected ${recipe.title}. Choose “Add here” on Breakfast, Lunch or Dinner, or press Escape to cancel.`);
+    }
+  },
+
+  add(recipeId, slotId) {
+    const recipe = state.recipes.find((r) => r.id === recipeId);
+    if (!recipe || !analyzeForUser(recipe).isSafe) return;
+    this.dishes(slotId).push({ recipeId, kind: courseOf(recipe) });
+    this.picked = null;
+    this.renderPalette();
+    this.commit(`[data-add-slot="${slotId}"]`);
+    const count = this.dishes(slotId).length;
+    announce(`Added ${recipe.title} to ${this.dayLabel(slotId)}, ${count} dish${count === 1 ? '' : 'es'} there now. ${this.dayTotalText()}`);
+  },
+
+  addPicked(slotId) {
+    if (this.picked) {
+      this.add(this.picked, slotId);
+      return;
+    }
+    if (!this.shelfOpen()) $('#palette-toggle').click();
+    $('#palette-search').focus();
+    announce('Select a recipe on the shelf first, then choose “Add here”.');
+  },
+
+  move(from, toSlot, { focus = false } = {}) {
+    const [dish] = this.dishes(from.slot).splice(from.index, 1);
+    if (!dish) return;
+    this.dishes(toSlot).push(dish);
+    this.commit(focus ? `[data-add-slot="${toSlot}"]` : undefined);
+    const recipe = state.recipes.find((r) => r.id === dish.recipeId);
+    announce(`Moved ${recipe?.title ?? 'dish'} to ${this.dayLabel(toSlot)}. ${this.dayTotalText()}`);
+  },
+
+  remove(slotId, index) {
+    const [dish] = this.dishes(slotId).splice(index, 1);
+    this.commit(`[data-add-slot="${slotId}"]`);
+    const recipe = state.recipes.find((r) => r.id === dish.recipeId);
+    announce(`Removed ${recipe?.title ?? 'dish'} from ${this.dayLabel(slotId)}. ${this.dayTotalText()}`);
+  },
+
+  /** Shelf only; slots and totals re-render with the day's nutrition (App.renderNutrition). */
   render() {
-    const labels = new Map(state.recipes.map((r) => {
-      const { isSafe, flagged } = analyzeForUser(r);
-      let suffix = '';
-      if (!isSafe) suffix = ` (unavailable: contains ${blockedHits(flagged).map((t) => RESTRICTIONS[t].label.toLowerCase()).join(', ')})`;
-      else if (flagged.length) suffix = ' (with swaps)';
-      return [r.id, { text: `${r.title}${suffix}`, disabled: !isSafe }];
-    }));
-    const options = (selected) => ['<option value="">— No meal —</option>',
-      ...state.recipes.map((r) => {
-        const { text, disabled } = labels.get(r.id);
-        return `<option value="${r.id}" ${r.id === selected ? 'selected' : ''} ${disabled ? 'disabled' : ''}>${escapeHTML(text)}</option>`;
-      })].join('');
-    $('#planner-grid').innerHTML = DAYS.map((day) => `
-      <fieldset class="card day-card">
-        <legend>${DAY_LABELS[day]}${day === todayKey() ? ' <span class="pill">Today</span>' : ''}</legend>
-        ${MEAL_SLOTS.map((slot) => `
-          <div class="field">
-            <label for="plan-${day}-${slot.id}">${slot.label} <span class="field__hint">${slot.display}</span></label>
-            <select id="plan-${day}-${slot.id}" data-day="${day}" data-slot="${slot.id}">${options(state.plan[day]?.[slot.id])}</select>
-          </div>`).join('')}
-      </fieldset>`).join('');
+    this.syncShelf();
+    this.renderPalette();
+  },
+
+  renderPalette() {
+    const { query, course } = this.filter;
+    const recipes = state.recipes.filter((r) => (course === 'all' || courseOf(r) === course)
+      && (!query || r.title.toLowerCase().includes(query)));
+    $('#palette-count').textContent = `${recipes.length} recipe${recipes.length === 1 ? '' : 's'}`;
+    $('#palette-list').innerHTML = recipes.length ? recipes.map((recipe) => {
+      const { isSafe, flagged, perServing } = analyzeForUser(recipe);
+      const kind = courseOf(recipe);
+      const picked = this.picked === recipe.id;
+      const status = isSafe
+        ? (flagged.length ? '<span class="palette-item__note">With allergy/diet swaps</span>' : '')
+        : `<span class="palette-item__note">Unavailable: contains ${blockedHits(flagged).map((t) => RESTRICTIONS[t].label.toLowerCase()).join(', ')}</span>`;
+      // A focusable role="button" rather than <button>: browsers won't start a native drag from a <button>.
+      return `
+        <li>
+          <div role="button" tabindex="0" class="palette-item${picked ? ' is-picked' : ''}" data-recipe="${recipe.id}"
+            draggable="${isSafe}" aria-pressed="${picked}" aria-disabled="${!isSafe}" aria-describedby="palette-hint">
+            <span class="palette-item__icon palette-item__icon--${kind}">${courseIcon(kind)}</span>
+            <span class="palette-item__body">
+              <span class="palette-item__title">${escapeHTML(recipe.title)}</span>
+              <span class="palette-item__meta">${courseBadge(kind)}</span>
+              <span class="palette-item__meta">${formatPrep(recipe.prepMinutes)} · ${fmt(perServing.calories)} kcal · ${fmt(perServing.protein)} g protein</span>
+              ${status}
+            </span>
+          </div>
+        </li>`;
+    }).join('') : '<li class="palette-empty">No recipes match. Try another search or course.</li>';
+  },
+
+  /** Live daily totals grouped by function, shown directly above the meal slots. */
+  renderTotals(meals) {
+    const planned = Object.values(meals).filter((m) => m?.hasSafe);
+    const intake = planned.reduce((sum, m) => addNutrients(sum, m.nutrients), emptyNutrients());
+    const { targets } = currentTargets();
+    const row = (key) => DashboardUI.row(NUTRIENT_BY_KEY[key], intake[key], targets[key], 'total');
+    const gaps = NUTRIENTS.filter((m) => m.group === 'micro' && m.key !== 'fiber')
+      .map((m) => ({ m, pct: targets[m.key] ? Math.round((intake[m.key] / targets[m.key]) * 100) : 100 }))
+      .filter(({ pct }) => pct < 80);
+    const gapBadges = gaps.length
+      ? gaps.map(({ m, pct }) => (pct < 50
+        ? `<li><span class="badge badge--danger"><span aria-hidden="true">✕</span> ${m.label} deficit</span> <span class="meta">${pct}%</span></li>`
+        : `<li><span class="badge badge--warn"><span aria-hidden="true">!</span> ${m.label} gap</span> <span class="meta">${pct}%</span></li>`)).join('')
+      : '<li><span class="badge badge--ok"><span aria-hidden="true">✓</span> Micronutrient targets met</span></li>';
+    const group = (id, title, body) => `
+      <div class="totals-group">
+        <p class="totals-group__title" id="totals-${id}">${title}</p>
+        <ul class="nutrient-list" aria-labelledby="totals-${id}">${body}</ul>
+      </div>`;
+    $('#day-totals-body').innerHTML = `
+      ${group('energy', 'Energy &amp; Muscle', row('calories') + row('protein'))}
+      ${group('digestion', 'Digestion &amp; Quality', `${row('fiber')}${row('sugar')}`)}
+      <div class="totals-group">
+        <p class="totals-group__title" id="totals-macros">Macros &amp; Micros</p>
+        <ul class="nutrient-list" aria-labelledby="totals-macros">${row('carbs')}</ul>
+        <p class="meta" id="totals-gaps-label">Micronutrient gaps (below 80% of target):</p>
+        <ul class="gap-list" aria-labelledby="totals-gaps-label">${gapBadges}</ul>
+      </div>`;
+    $('#day-totals-note').textContent = `${planned.length} of ${MEAL_SLOTS.length} meals planned, ${planned.reduce((n, m) => n + m.items.filter((i) => !i.blocked).length, 0)} dishes.`;
+  },
+
+  renderSlots() {
+    const meals = mealsForDay(state.viewDay);
+    this.renderTotals(meals);
+    const pickedRecipe = this.picked && state.recipes.find((r) => r.id === this.picked);
+    $('#planner-slots').classList.toggle('is-armed', Boolean(pickedRecipe));
+    $('#planner-slots').innerHTML = MEAL_SLOTS.map((slot) => {
+      const meal = meals[slot.id];
+      const titleId = `slot-${slot.id}-title`;
+      const dishes = meal ? meal.items.map((item) => {
+        const title = escapeHTML(item.recipe.title);
+        const moveId = `move-${slot.id}-${item.index}`;
+        const n = item.nutrients;
+        const summary = item.blocked
+          ? `${SubstitutionEngine.badge(blockedHits(item.flagged), { blocked: true })} Unavailable, not counted`
+          : `${fmt(n.calories)} kcal · P ${fmt(n.protein)} g · C ${fmt(n.carbs)} g · F ${fmt(n.fat)} g${item.flagged.length ? ' · with swaps' : ''}`;
+        return `
+          <li class="dish dish--${item.kind}${item.blocked ? ' is-blocked' : ''}" data-dish data-slot="${slot.id}" data-index="${item.index}" draggable="true">
+            <span class="dish__grip" aria-hidden="true">⋮⋮</span>
+            <span class="dish__body">
+              <span class="dish__title">${title}</span>
+              <span class="dish__badge">${courseBadge(item.kind)}</span>
+              <span class="meta">${summary}</span>
+            </span>
+            <span class="dish__actions">
+              <label class="sr-only" for="${moveId}">Move ${title} to</label>
+              <select id="${moveId}" class="dish__move" data-move data-slot="${slot.id}" data-index="${item.index}">
+                ${MEAL_SLOTS.map((s) => `<option value="${s.id}" ${s.id === slot.id ? 'selected' : ''}>${s.id === slot.id ? `In ${s.label.toLowerCase()}` : `Move to ${s.label.toLowerCase()}`}</option>`).join('')}
+              </select>
+              <button type="button" class="btn btn--ghost dish__remove" data-remove data-slot="${slot.id}" data-index="${item.index}" aria-label="Remove ${title} from ${this.dayLabel(slot.id)}">
+                <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="16" height="16"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </button>
+            </span>
+          </li>`;
+      }).join('') : '<li class="slot__empty">Drop a recipe here</li>';
+      return `
+        <li class="slot" data-dropzone="${slot.id}">
+          <div class="slot__header">
+            <h3 id="${titleId}"><time datetime="${slot.time}">${slot.display}</time> ${slot.label}</h3>
+            <span class="meta">${meal?.hasSafe ? `${fmt(meal.nutrients.calories)} kcal · ${fmt(meal.nutrients.protein)} g protein` : ''}</span>
+          </div>
+          <ul class="slot__dishes" aria-labelledby="${titleId}">${dishes}</ul>
+          <button type="button" class="btn btn--ghost slot__add" data-add-slot="${slot.id}">
+            ${pickedRecipe ? `Add “${escapeHTML(pickedRecipe.title)}” here` : '+ Add here'}<span class="sr-only"> to ${this.dayLabel(slot.id)}</span>
+          </button>
+        </li>`;
+    }).join('');
   },
 };
 
@@ -2354,16 +2710,19 @@ const ScheduleUI = {
     $('#timeline').innerHTML = MEAL_SLOTS.map((slot) => {
       const meal = meals[slot.id];
       let mealText = '<p class="timeline__meal timeline__meal--empty">No meal planned</p>';
-      if (meal?.blocked) {
-        mealText = `<p class="timeline__meal">${escapeHTML(meal.recipe.title)}</p>
-          <p class="meta">${SubstitutionEngine.badge(blockedHits(meal.flagged), { blocked: true })} No safe substitute, so this meal is excluded. Choose another recipe.</p>`;
-      } else if (meal) {
-        const swaps = meal.flagged.map((f) => (f.substitute.name === 'Omit' ? `${f.original.toLowerCase()} omitted` : `${f.substitute.name} for ${f.original.toLowerCase()}`));
-        mealText = `<p class="timeline__meal">${escapeHTML(meal.recipe.title)}</p>
-          <p class="meta">${fmt(meal.nutrients.calories)} kcal · ${fmt(meal.nutrients.protein)} g protein · ${fmt(meal.nutrients.fat)} g fat · ${fmt(meal.nutrients.vitaminC)} mg vitamin C</p>
-          ${swaps.length ? `<p class="meta">Swaps: ${escapeHTML(swaps.join('; '))}.</p>` : ''}`;
+      if (meal) {
+        const dishes = meal.items.map((item) => {
+          const swaps = item.flagged.filter((f) => f.substitute)
+            .map((f) => (f.substitute.name === 'Omit' ? `${f.original.toLowerCase()} omitted` : `${f.substitute.name} for ${f.original.toLowerCase()}`));
+          const detail = item.blocked
+            ? ` ${SubstitutionEngine.badge(blockedHits(item.flagged), { blocked: true })} excluded: no safe substitute`
+            : `${swaps.length ? ` <span class="meta">(swaps: ${escapeHTML(swaps.join('; '))})</span>` : ''}`;
+          return `<li><span class="meta">${COURSES[item.kind].label}:</span> ${escapeHTML(item.recipe.title)}${detail}</li>`;
+        }).join('');
+        mealText = `<ul class="timeline__dishes">${dishes}</ul>
+          ${meal.hasSafe ? `<p class="meta">${fmt(meal.nutrients.calories)} kcal · ${fmt(meal.nutrients.protein)} g protein · ${fmt(meal.nutrients.fat)} g fat · ${fmt(meal.nutrients.vitaminC)} mg vitamin C</p>` : ''}`;
       }
-      const tips = ScheduleOptimizer.mealTips(slot.id, meal?.blocked ? null : meal, coffeeAtBreakfast);
+      const tips = ScheduleOptimizer.mealTips(slot.id, meal?.hasSafe ? meal : null, coffeeAtBreakfast);
       const supps = schedule[slot.id].length
         ? `<ul class="supp-list">${schedule[slot.id].map((s) => `<li><strong>${SUPPLEMENT_BY_ID[s.id].label}</strong>: ${escapeHTML(s.reason)}</li>`).join('')}</ul>`
         : '';
@@ -2621,6 +2980,7 @@ const App = {
     const day = DashboardUI.render();
     RecommendationsUI.render(day);
     ScheduleUI.render(day.meals);
+    PlannerUI.renderSlots();
     ProfileDrawer.renderButton();
     const { profile } = state;
     $('#app-summary').textContent = `${NutritionEngine.GOALS[profile.goal].label} · ${DIETS[profile.diet].label} · ${fmt(currentTargets().targets.calories)} kcal a day`;
@@ -2634,7 +2994,7 @@ const App = {
     Storage.scope = null;
     state.account = null;
     // Clear the previous user's rendered data from the hidden app view.
-    ['#macro-list', '#micro-list', '#recommendation-list', '#targets-output', '#recipe-library', '#planner-grid', '#timeline', '#grocery-list']
+    ['#macro-list', '#micro-list', '#recommendation-list', '#targets-output', '#recipe-library', '#palette-list', '#planner-slots', '#day-totals-body', '#timeline', '#grocery-list']
       .forEach((sel) => { $(sel).innerHTML = ''; });
     AuthView.reset();
     this.showView('auth');

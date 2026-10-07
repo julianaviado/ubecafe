@@ -62,6 +62,15 @@
   --radius: 14px;
   --radius-sm: 8px;
   --shadow: 0 1px 2px rgb(60 48 30 / 0.06), 0 8px 24px -12px rgb(60 48 30 / 0.18);
+
+  /* Recipe shelf: a dark espresso palette, like a café menu board */
+  --palette-bg: #2b2a22;
+  --palette-item: #39372d;
+  --palette-item-hover: #46443a;
+  --palette-ink: #f4efe4;
+  --palette-muted: #cfc7b3;
+  --palette-picked: #c9dba6;
+  --palette-picked-ink: #1f2614;
   --tap: 44px;
   --content: 72rem;
 }
@@ -97,6 +106,9 @@
     --branch: #6e5d47;
     --berry: #8f6bb0;
     --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 10px 28px -14px rgb(0 0 0 / 0.6);
+    --palette-bg: #121410;
+    --palette-item: #22251c;
+    --palette-item-hover: #2d3125;
   }
 }
 
@@ -130,6 +142,9 @@
   --branch: #6e5d47;
   --berry: #8f6bb0;
   --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 10px 28px -14px rgb(0 0 0 / 0.6);
+  --palette-bg: #121410;
+  --palette-item: #22251c;
+  --palette-item-hover: #2d3125;
 }
 
 /* ---------- Base ---------- */
@@ -401,11 +416,6 @@ textarea {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-3);
-}
-
-.button-row--center {
-  justify-content: center;
-  margin-top: var(--space-5);
 }
 
 /* ---------- Views ---------- */
@@ -1025,6 +1035,7 @@ textarea {
 }
 
 input[type="text"],
+input[type="search"],
 input[type="email"],
 input[type="password"],
 input[type="number"],
@@ -1314,14 +1325,7 @@ textarea {
   font-size: var(--step-2);
 }
 
-/* ---------- Planner ---------- */
-.day-card {
-  display: grid;
-  gap: var(--space-3);
-  margin: 0;
-}
-
-.day-card legend,
+/* ---------- Planner: recipe shelf + meal slots ---------- */
 .aisle legend {
   float: left;
   width: 100%;
@@ -1331,17 +1335,377 @@ textarea {
   line-height: 1.1;
 }
 
-.pill {
-  display: inline-block;
-  margin-left: var(--space-2);
-  padding: 0.1rem 0.6rem;
+.planner-layout {
+  display: grid;
+  gap: var(--space-5);
+  align-items: start;
+}
+
+.recipe-palette {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius);
+  background: var(--palette-bg);
+  color: var(--palette-ink);
+  box-shadow: var(--shadow);
+}
+
+.palette-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.card .recipe-palette h3,
+.recipe-palette h3 {
+  margin: 0;
+  color: var(--palette-ink);
+}
+
+.palette-toggle {
+  border-color: var(--palette-muted);
+  color: var(--palette-ink);
+}
+
+.palette-toggle:hover {
+  background: var(--palette-item-hover);
+}
+
+.palette-body {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.recipe-palette input[type="search"] {
+  border-color: var(--palette-muted);
+  background: var(--palette-item);
+  color: var(--palette-ink);
+}
+
+.recipe-palette :focus-visible {
+  outline-color: var(--palette-picked);
+}
+
+.palette-courses {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.palette-courses input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.palette-courses label {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  padding-inline: var(--space-3);
   border-radius: 999px;
-  background: var(--accent);
-  color: var(--bg);
-  font-family: var(--font-sans);
+  color: var(--palette-muted);
+  font-size: var(--step--1);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.palette-courses input:checked + label {
+  background: var(--palette-picked);
+  color: var(--palette-picked-ink);
+}
+
+.palette-courses input:focus-visible + label {
+  outline: 3px solid var(--palette-picked);
+  outline-offset: 2px;
+}
+
+.palette-hint {
+  color: var(--palette-muted);
+  font-size: var(--step--1);
+}
+
+.palette-list {
+  position: relative;
+  display: grid;
+  gap: var(--space-2);
+  max-height: 22rem;
+  overflow-y: auto;
+  padding: var(--space-1);
+  scrollbar-width: thin;
+}
+
+.palette-item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: var(--space-3);
+  width: 100%;
+  min-height: var(--tap);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  background: var(--palette-item);
+  color: var(--palette-ink);
+  text-align: left;
+  cursor: grab;
+}
+
+.palette-item:hover:not([aria-disabled="true"]) {
+  background: var(--palette-item-hover);
+}
+
+.palette-item:active:not([aria-disabled="true"]) {
+  cursor: grabbing;
+}
+
+.palette-item.is-picked {
+  background: var(--palette-picked);
+  color: var(--palette-picked-ink);
+}
+
+.palette-item[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.palette-item__icon {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--radius-sm);
+  background: var(--palette-item-hover);
+}
+
+.palette-item__body {
+  display: grid;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.palette-item__note {
+  color: var(--palette-picked);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.palette-item.is-picked .palette-item__icon {
+  background: rgb(0 0 0 / 0.12);
+}
+
+.palette-item.is-picked .palette-item__note {
+  color: inherit;
+}
+
+.palette-item__title {
+  font-weight: 600;
+}
+
+.palette-item__meta {
+  font-size: 0.8rem;
+  opacity: 0.85;
+}
+
+.course-icon {
+  flex: none;
+}
+
+.course-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 0.05rem 0.55rem 0.05rem 0.35rem;
+  border: 1px solid currentColor;
+  border-radius: 999px;
   font-size: 0.75rem;
   font-weight: 600;
-  vertical-align: middle;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+
+.course-badge .course-icon {
+  width: 14px;
+  height: 14px;
+}
+
+.palette-empty {
+  color: var(--palette-muted);
+  font-size: var(--step--1);
+}
+
+.planner-day {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.day-totals {
+  display: grid;
+  gap: var(--space-4);
+  border-top: 4px solid var(--primary);
+}
+
+.day-totals__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.card.day-totals h3 {
+  margin: 0;
+}
+
+.day-totals__body {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.totals-group {
+  display: grid;
+  align-content: start;
+  gap: var(--space-3);
+}
+
+.totals-group__title {
+  font-family: var(--font-serif);
+  font-size: var(--step-1);
+}
+
+/* Compact rows in the narrow totals columns: label + badge, value underneath. */
+.day-totals .nutrient__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.day-totals .nutrient__value {
+  grid-row: 2;
+  grid-column: 1 / -1;
+}
+
+.gap-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+}
+
+.slot-list {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.slot {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 2px dashed var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.slot-list.is-armed .slot {
+  border-color: var(--primary);
+}
+
+.slot.is-over {
+  border-color: var(--primary);
+  background: var(--ok-bg);
+}
+
+.slot__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.slot__header time {
+  font-style: italic;
+}
+
+.slot__dishes {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.slot__empty {
+  padding: var(--space-3);
+  color: var(--ink-muted);
+  font-size: var(--step--1);
+  text-align: center;
+}
+
+.slot__add {
+  justify-self: start;
+}
+
+.dish {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
+  padding: var(--space-2) var(--space-2) var(--space-2) var(--space-3);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--primary);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  cursor: grab;
+}
+
+.dish--side {
+  border-left-color: var(--leaf-2);
+}
+
+.dish--snack {
+  border-left-color: var(--berry);
+}
+
+.dish--drink {
+  border-left-color: var(--accent);
+}
+
+.dish--dessert {
+  border-left-color: var(--warn-fill);
+}
+
+.dish.is-blocked {
+  border-left-color: var(--danger-fill);
+}
+
+.dish__grip {
+  color: var(--ink-muted);
+  letter-spacing: -0.2em;
+}
+
+.dish__body {
+  display: grid;
+  min-width: 0;
+}
+
+.dish__title {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.dish__body {
+  gap: 0.15rem;
+}
+
+.dish__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.dish__move {
+  width: auto;
+  font-size: var(--step--1);
 }
 
 /* ---------- Timeline ---------- */
@@ -1399,6 +1763,12 @@ textarea {
 
 .timeline__meal {
   font-weight: 600;
+}
+
+.timeline__dishes {
+  display: grid;
+  gap: var(--space-1);
+  margin-bottom: var(--space-2);
 }
 
 .timeline__meal--empty {
@@ -1703,7 +2073,7 @@ textarea {
   }
 
   .form__grid--title {
-    grid-template-columns: 3fr 1fr;
+    grid-template-columns: 3fr 1fr 1.4fr;
   }
 
   .form__grid--four {
@@ -1732,6 +2102,35 @@ textarea {
   .split {
     grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
     align-items: start;
+  }
+
+  /* Shelf is first in reading order but sits on the right, like the reference palette. */
+  .planner-layout {
+    grid-template-columns: minmax(0, 1fr) 20rem;
+  }
+
+  .planner-layout.is-shelf-collapsed {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .day-totals__body {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .recipe-palette {
+    position: sticky;
+    top: 5rem;
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .palette-list {
+    max-height: calc(100vh - 22rem);
+  }
+
+  .planner-day {
+    grid-column: 1;
+    grid-row: 1;
   }
 
   .app-body--rail {
@@ -1781,6 +2180,14 @@ textarea {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .dish {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .dish__actions {
+    grid-column: 2;
+  }
+
   .wizard-nav .btn {
     flex: 1 1 auto;
   }
@@ -1808,6 +2215,8 @@ textarea {
   .segmented input:checked + label,
   .choice input:checked + label,
   .day-rail__input:checked + .day-rail__day,
+  .palette-courses input:checked + label,
+  .palette-item.is-picked,
   .tabs-segmented [aria-selected="true"],
   .app-tabs [aria-selected="true"] {
     outline: 2px solid Highlight;
