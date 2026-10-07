@@ -2670,7 +2670,7 @@ const PlannerUI = {
         const n = item.nutrients;
         const summary = item.blocked
           ? `${SubstitutionEngine.badge(blockedHits(item.flagged), { blocked: true })} Unavailable, not counted`
-          : `${fmt(n.calories)} kcal · P ${fmt(n.protein)} g · C ${fmt(n.carbs)} g · F ${fmt(n.fat)} g${item.flagged.length ? ' · with swaps' : ''}`;
+          : [`${fmt(n.calories)}&nbsp;kcal`, `P&nbsp;${fmt(n.protein)}&nbsp;g`, `C&nbsp;${fmt(n.carbs)}&nbsp;g`, `F&nbsp;${fmt(n.fat)}&nbsp;g`, ...(item.flagged.length ? ['with swaps'] : [])].join(' · ');
         return `
           <li class="dish dish--${item.kind}${item.blocked ? ' is-blocked' : ''}" data-dish data-slot="${slot.id}" data-index="${item.index}" draggable="true">
             <span class="dish__grip" aria-hidden="true">⋮⋮</span>

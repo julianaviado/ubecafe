@@ -2064,6 +2064,29 @@ textarea {
     grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
   }
 
+  /* Breakfast, Lunch and Dinner side by side; dish controls wrap under the title. */
+  .slot-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: start;
+  }
+
+  .slot__add {
+    justify-self: stretch;
+  }
+
+  .slot-list .dish {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .slot-list .dish__actions {
+    grid-column: 1 / -1;
+  }
+
+  .slot-list .dish__move {
+    flex: 1;
+    min-width: 0;
+  }
+
   .site-footer__inner {
     grid-template-columns: 1fr 1.4fr;
   }
