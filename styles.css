@@ -865,12 +865,6 @@ textarea {
   margin: 0 0 var(--space-4);
 }
 
-.count-pill {
-  font-family: var(--font-sans);
-  font-size: var(--step-0);
-  color: var(--ink-muted);
-}
-
 /* ---------- Cards & layout ---------- */
 .card {
   min-width: 0;
@@ -1319,6 +1313,15 @@ textarea {
   color: var(--palette-ink);
 }
 
+.palette-add {
+  background: var(--palette-picked);
+  color: var(--palette-picked-ink);
+}
+
+.palette-add:hover {
+  filter: brightness(1.06);
+}
+
 .palette-toggle {
   border-color: var(--palette-muted);
   color: var(--palette-ink);
@@ -1391,6 +1394,29 @@ textarea {
   overflow-y: auto;
   padding: var(--space-1);
   scrollbar-width: thin;
+}
+
+.palette-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--space-1);
+}
+
+.palette-row__actions {
+  display: grid;
+  align-content: start;
+  gap: var(--space-1);
+}
+
+.palette-action {
+  border-color: transparent;
+  color: var(--palette-muted);
+  padding-inline: 0;
+}
+
+.palette-action:hover {
+  background: var(--palette-item-hover);
+  color: var(--palette-ink);
 }
 
 .palette-item {
@@ -1732,8 +1758,7 @@ textarea {
 }
 
 .supp-list,
-.tip-list,
-.allergy-list {
+.tip-list {
   display: grid;
   gap: var(--space-2);
   margin-top: var(--space-3);
@@ -1822,40 +1847,6 @@ textarea {
   font-weight: 500;
 }
 
-.recipe-card {
-  display: grid;
-  gap: var(--space-3);
-  height: 100%;
-  align-content: start;
-}
-
-.card.recipe-card h3 {
-  margin: 0;
-}
-
-.macro-chips {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-2);
-}
-
-.macro-chips div {
-  padding: var(--space-2);
-  background: var(--surface-2);
-  border-radius: var(--radius-sm);
-  text-align: center;
-}
-
-.macro-chips dt {
-  color: var(--ink-muted);
-  font-size: 0.75rem;
-}
-
-.macro-chips dd {
-  font-weight: 600;
-  font-size: var(--step--1);
-}
-
 /* ---------- Grocery ---------- */
 .aisle {
   margin: 0;
@@ -1901,6 +1892,40 @@ textarea {
 .check--grocery input:checked + label .grocery__name {
   text-decoration: line-through;
   color: var(--ink-muted);
+}
+
+/* ---------- Recipe dialog ---------- */
+.modal {
+  width: min(62rem, calc(100% - 2rem));
+  max-height: calc(100dvh - 2rem);
+  padding: var(--space-5);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg);
+  color: var(--ink);
+  box-shadow: var(--shadow);
+  overflow-y: auto;
+}
+
+.modal[open] {
+  display: grid;
+  gap: var(--space-4);
+  animation: view-in 0.25s ease both;
+}
+
+.modal::backdrop {
+  background: rgb(26 28 21 / 0.45);
+}
+
+.modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.modal__header h2 {
+  font-size: var(--step-2);
 }
 
 /* ---------- Profile drawer ---------- */
@@ -2128,10 +2153,6 @@ textarea {
   .stat-row,
   .segmented--three {
     grid-template-columns: 1fr;
-  }
-
-  .macro-chips {
-    grid-template-columns: repeat(2, 1fr);
   }
 
   .dish {

@@ -1591,11 +1591,12 @@ const AuthView = {
 class RecipeImporter {
   /**
    * @param {HTMLElement} root – container to render into
-   * @param {{prefix: string, onSaved: (recipe, isUpdate: boolean) => void}} options
+   * @param {{prefix: string, onSaved: (recipe, isUpdate: boolean) => void, onCancel?: () => void}} options
    */
-  constructor(root, { prefix, onSaved }) {
+  constructor(root, { prefix, onSaved, onCancel }) {
     this.p = prefix;
     this.onSaved = onSaved;
+    this.onCancel = onCancel;
     this.editingId = null;
     this.previewUrl = null;
     root.innerHTML = this.markup();
@@ -1688,7 +1689,10 @@ class RecipeImporter {
   bind() {
     this.el('parse').addEventListener('click', () => this.parseRaw());
     this.el('analyze').addEventListener('click', () => this.renderAnalysis(this.readForm()));
-    this.el('cancel').addEventListener('click', () => this.reset());
+    this.el('cancel').addEventListener('click', () => {
+      this.reset();
+      this.onCancel?.();
+    });
     this.el('form').addEventListener('submit', (e) => {
       e.preventDefault();
       this.save();
@@ -2146,15 +2150,30 @@ const OnboardingWizard = {
 
 /* ---------- Recipe library ---------- */
 
+/** Recipe storage plus the "Add recipe" dialog opened from the shelf. */
 const RecipeLibrary = {
   init() {
-    $('#recipe-library').addEventListener('click', (e) => {
-      const button = e.target.closest('button[data-action]');
-      if (!button) return;
-      const recipe = state.recipes.find((r) => r.id === button.dataset.id);
-      if (button.dataset.action === 'edit') App.importer.edit(recipe);
-      if (button.dataset.action === 'delete') this.remove(recipe);
+    const dialog = $('#recipe-dialog');
+    $('#palette-add').addEventListener('click', () => this.open());
+    $('#recipe-dialog-close').addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', (e) => {
+      if (e.target === dialog) dialog.close(); // backdrop click
     });
+    dialog.addEventListener('close', () => App.importer.reset());
+  },
+
+  /** Opens the importer dialog, empty for a new recipe or pre-filled to edit one. */
+  open(recipe = null) {
+    $('#recipe-dialog-title').textContent = recipe ? `Edit “${recipe.title}”` : 'Add a recipe';
+    App.importer.reset();
+    $('#recipe-dialog').showModal();
+    if (recipe) App.importer.edit(recipe);
+    else App.importer.el('raw').focus();
+  },
+
+  close() {
+    const dialog = $('#recipe-dialog');
+    if (dialog.open) dialog.close();
   },
 
   /** Inserts or replaces a recipe; returns true when it was an update. */
@@ -2174,46 +2193,9 @@ const RecipeLibrary = {
     }));
     Storage.save(Storage.KEYS.recipes, state.recipes);
     Storage.save(Storage.KEYS.plan, state.plan);
-    if (App.importer.editingId === recipe.id) App.importer.reset();
     App.renderAll();
-    $('#library-heading').focus();
+    $('#palette-add').focus();
     announce(`Deleted “${recipe.title}”.`);
-  },
-
-  render() {
-    $('#recipe-count').textContent = String(state.recipes.length);
-    const list = $('#recipe-library');
-    if (!state.recipes.length) {
-      list.innerHTML = '<li class="empty">No recipes yet. Import one above to get started.</li>';
-      return;
-    }
-    list.innerHTML = state.recipes.map((recipe) => {
-      const { perServing: p, flagged, isSafe } = analyzeForUser(recipe);
-      const title = escapeHTML(recipe.title);
-      const checks = flagged.map((f) => {
-        const badge = SubstitutionEngine.badge(f.hits, { isAllergy: f.isAllergy, blocked: !f.substitute });
-        if (!f.substitute) return `<li>${badge} ${escapeHTML(f.original)}: no safe substitute; recipe unavailable</li>`;
-        return `<li>${badge} ${escapeHTML(f.original)} → <strong>${escapeHTML(f.substitute.name === 'Omit' ? 'omitted' : f.substitute.name)}</strong></li>`;
-      }).join('');
-      return `
-        <li>
-          <article class="card recipe-card">
-            <h3>${title}</h3>
-            <p class="meta">${COURSES[courseOf(recipe)].label} · ${formatTimes(recipe)} · ${recipe.servings} serving${recipe.servings === 1 ? '' : 's'} · per serving${isSafe && flagged.length ? ', with your swaps' : ''}</p>
-            <dl class="macro-chips">
-              <div><dt>kcal</dt><dd>${fmt(p.calories)}</dd></div>
-              <div><dt>Protein</dt><dd>${fmt(p.protein)} g</dd></div>
-              <div><dt>Carbs</dt><dd>${fmt(p.carbs)} g</dd></div>
-              <div><dt>Fat</dt><dd>${fmt(p.fat)} g</dd></div>
-            </dl>
-            ${checks ? `<ul class="allergy-list" aria-label="Allergy and diet check for ${title}">${checks}</ul>` : ''}
-            <div class="button-row">
-              <button type="button" class="btn btn--ghost" data-action="edit" data-id="${recipe.id}" aria-label="Edit ${title}">Edit</button>
-              <button type="button" class="btn btn--ghost btn--danger" data-action="delete" data-id="${recipe.id}" aria-label="Delete ${title}">Delete</button>
-            </div>
-          </article>
-        </li>`;
-    }).join('');
   },
 };
 
@@ -2434,6 +2416,13 @@ const PlannerUI = {
       document.querySelector(`[data-recipe="${item.dataset.recipe}"]`)?.focus();
     };
     palette.addEventListener('click', (e) => {
+      const action = e.target.closest('[data-shelf-action]');
+      if (action) {
+        const recipe = state.recipes.find((r) => r.id === action.dataset.id);
+        if (action.dataset.shelfAction === 'edit') RecipeLibrary.open(recipe);
+        else RecipeLibrary.remove(recipe);
+        return;
+      }
       const item = e.target.closest('[data-recipe]');
       if (item) togglePick(item);
     });
@@ -2610,18 +2599,27 @@ const PlannerUI = {
         ? (flagged.length ? '<span class="palette-item__note">With allergy/diet swaps</span>' : '')
         : `<span class="palette-item__note">Unavailable: contains ${blockedHits(flagged).map((t) => RESTRICTIONS[t].label.toLowerCase()).join(', ')}</span>`;
       // A focusable role="button" rather than <button>: browsers won't start a native drag from a <button>.
+      const title = escapeHTML(recipe.title);
       return `
-        <li>
+        <li class="palette-row">
           <div role="button" tabindex="0" class="palette-item${picked ? ' is-picked' : ''}" data-recipe="${recipe.id}"
             draggable="${isSafe}" aria-pressed="${picked}" aria-disabled="${!isSafe}" aria-describedby="palette-hint">
             <span class="palette-item__icon palette-item__icon--${kind}">${courseIcon(kind)}</span>
             <span class="palette-item__body">
-              <span class="palette-item__title">${escapeHTML(recipe.title)}</span>
+              <span class="palette-item__title">${title}</span>
               <span class="palette-item__meta">${courseBadge(kind)}</span>
               <span class="palette-item__meta">${formatTimes(recipe)}</span>
               <span class="palette-item__meta">${fmt(perServing.calories)} kcal · ${fmt(perServing.protein)} g protein</span>
               ${status}
             </span>
+          </div>
+          <div class="palette-row__actions">
+            <button type="button" class="btn btn--ghost palette-action" data-shelf-action="edit" data-id="${recipe.id}" aria-label="Edit ${title}">
+              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="16" height="16"><path d="M4 20h4L19 9l-4-4L4 16v4Zm10-14 4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+            </button>
+            <button type="button" class="btn btn--ghost palette-action" data-shelf-action="delete" data-id="${recipe.id}" aria-label="Delete ${title}">
+              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="16" height="16"><path d="M5 7h14M10 7V4h4v3m-7 0 1 13h8l1-13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg>
+            </button>
           </div>
         </li>`;
     }).join('') : '<li class="palette-empty">No recipes match. Try another search or course.</li>';
@@ -2933,12 +2931,15 @@ const App = {
     PlannerUI.init();
     ScheduleUI.init();
     GroceryUI.init();
-    this.importer = new RecipeImporter($('#library-importer'), {
+    this.importer = new RecipeImporter($('#recipe-importer'), {
       prefix: 'lib',
       onSaved: (recipe, isUpdate) => {
+        RecipeLibrary.close();
         this.renderAll();
-        announce(`${isUpdate ? 'Updated' : 'Saved'} “${recipe.title}”. It is now available in the weekly planner.`);
+        document.querySelector(`[data-recipe="${recipe.id}"]`)?.focus();
+        announce(`${isUpdate ? 'Updated' : 'Saved'} “${recipe.title}”. It is on the recipe shelf, ready to drag into a meal.`);
       },
+      onCancel: () => RecipeLibrary.close(),
     });
     this.tabs = new Tabs($('#app-tablist'), {
       onChange: (id) => {
@@ -2993,7 +2994,6 @@ const App = {
 
   /** Re-renders every recipe-dependent view. */
   renderAll() {
-    RecipeLibrary.render();
     PlannerUI.render();
     this.renderNutrition();
     GroceryUI.render();
@@ -3015,12 +3015,13 @@ const App = {
   signOut(message) {
     const dialog = $('#profile-drawer');
     if (dialog.open) dialog.close();
+    RecipeLibrary.close();
     const name = state.account ? firstName() : '';
     AuthManager.signOut();
     Storage.scope = null;
     state.account = null;
     // Clear the previous user's rendered data from the hidden app view.
-    ['#macro-list', '#micro-list', '#recommendation-list', '#targets-output', '#recipe-library', '#palette-list', '#planner-slots', '#day-totals-body', '#timeline', '#grocery-list']
+    ['#macro-list', '#micro-list', '#recommendation-list', '#targets-output', '#palette-list', '#planner-slots', '#day-totals-body', '#timeline', '#grocery-list']
       .forEach((sel) => { $(sel).innerHTML = ''; });
     AuthView.reset();
     this.showView('auth');

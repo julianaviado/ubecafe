@@ -398,7 +398,6 @@
       <nav class="app-nav" aria-label="App sections">
         <div id="app-tablist" class="app-tabs" role="tablist" aria-label="App sections">
           <button type="button" role="tab" id="tab-dashboard" aria-controls="panel-dashboard" aria-selected="true">Dashboard &amp; Targets</button>
-          <button type="button" role="tab" id="tab-recipes" aria-controls="panel-recipes" aria-selected="false" tabindex="-1">Recipe Library &amp; Importer</button>
           <button type="button" role="tab" id="tab-planner" aria-controls="panel-planner" aria-selected="false" tabindex="-1">Weekly Planner &amp; Schedule</button>
           <button type="button" role="tab" id="tab-grocery" aria-controls="panel-grocery" aria-selected="false" tabindex="-1">Smart Grocery List</button>
         </div>
@@ -456,25 +455,6 @@
         </section>
       </div>
 
-      <!-- Panel: Recipes -->
-      <div id="panel-recipes" class="tab-panel" role="tabpanel" aria-labelledby="tab-recipes" hidden>
-        <section class="section section--sky" aria-labelledby="importer-title">
-          <svg class="botanical botanical--edge-right" aria-hidden="true" focusable="false"><use href="#branch"/></svg>
-          <header class="section__header">
-            <h2 id="importer-title" class="section__title">Bring your <em>recipes home</em></h2>
-            <p class="section__intro">Paste a recipe or scan a photo. Ingredients are matched against a built-in nutrition dictionary and screened for your allergies and diet.</p>
-          </header>
-          <div id="library-importer" class="importer"></div>
-        </section>
-        <section class="section" aria-labelledby="library-heading">
-          <header class="section__header">
-            <h2 id="library-heading" class="section__title" tabindex="-1">The recipe <em>library</em> <span class="count-pill">(<span id="recipe-count">0</span>)</span></h2>
-            <p class="section__intro">Nutrition per serving, with your swaps applied. Edit a recipe to re-analyze it.</p>
-          </header>
-          <ul id="recipe-library" class="card-grid"></ul>
-        </section>
-      </div>
-
       <!-- Panel: Planner & schedule -->
       <div id="panel-planner" class="tab-panel" role="tabpanel" aria-labelledby="tab-planner" hidden>
         <section class="section section--sky" aria-labelledby="planner-title">
@@ -491,6 +471,10 @@
                   <span id="palette-toggle-label">Hide</span><span class="sr-only"> recipe shelf</span>
                 </button>
               </div>
+              <button type="button" id="palette-add" class="btn btn--block palette-add" aria-haspopup="dialog" aria-controls="recipe-dialog">
+                <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="18" height="18"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+                Add recipe
+              </button>
               <div id="palette-body" class="palette-body">
                 <div class="field">
                   <label for="palette-search">Search recipes</label>
@@ -569,6 +553,18 @@
       </div>
     </div>
   </main>
+
+  <!-- Add / edit recipe dialog (native modal: focus trap + Escape built in) -->
+  <dialog id="recipe-dialog" class="modal" aria-labelledby="recipe-dialog-title">
+    <div class="modal__header">
+      <h2 id="recipe-dialog-title">Add a recipe</h2>
+      <button type="button" id="recipe-dialog-close" class="btn btn--ghost" aria-label="Close">
+        <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="20" height="20"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <p class="meta">Paste a recipe or scan a photo. Ingredients are matched against the built-in nutrition dictionary and screened for your allergies and diet. Saved recipes appear on the shelf.</p>
+    <div id="recipe-importer" class="importer"></div>
+  </dialog>
 
   <!-- Profile drawer -->
   <dialog id="profile-drawer" class="drawer" aria-labelledby="drawer-title">
