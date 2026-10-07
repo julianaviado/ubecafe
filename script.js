@@ -2104,14 +2104,46 @@ const RecipeLibrary = {
 
 /* ---------- Dashboard & targets ---------- */
 
-const DashboardUI = {
+/* ---------- Day rail (native radios: arrow keys move between days) ---------- */
+
+const DayRail = {
+  /** Tabs whose content depends on the selected day. */
+  TABS: ['tab-dashboard', 'tab-planner'],
+
   init() {
-    document.querySelectorAll('[data-day-select]').forEach((select) => {
-      select.innerHTML = DAYS.map((d) => `<option value="${d}">${DAY_LABELS[d]}${d === todayKey() ? ' (today)' : ''}</option>`).join('');
-      select.addEventListener('change', () => App.setViewDay(select.value));
-    });
+    const today = new Date();
+    const monday = new Date(today);
+    monday.setDate(today.getDate() - ((today.getDay() + 6) % 7));
+    $('#day-rail-list').innerHTML = DAYS.map((day, i) => {
+      const date = new Date(monday);
+      date.setDate(monday.getDate() + i);
+      const isToday = day === todayKey();
+      const full = date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+      return `
+        <input type="radio" id="day-${day}" name="view-day" value="${day}" class="day-rail__input">
+        <label for="day-${day}" class="day-rail__day${isToday ? ' is-today' : ''}">
+          <span class="day-rail__weekday" aria-hidden="true">${isToday ? 'Today' : DAY_LABELS[day].slice(0, 3)}</span>
+          <span class="day-rail__date" aria-hidden="true">${date.getDate()}</span>
+          <span class="day-rail__month" aria-hidden="true">${date.toLocaleDateString('en-US', { month: 'short' })}</span>
+          <span class="sr-only">${full}${isToday ? ', today' : ''}</span>
+        </label>`;
+    }).join('');
+    $('#day-rail-list').addEventListener('change', (e) => App.setViewDay(e.target.value));
   },
 
+  sync() {
+    $(`#day-${state.viewDay}`).checked = true;
+  },
+
+  /** Shows the rail only on tabs that use the selected day. */
+  toggleFor(tabId) {
+    const visible = this.TABS.includes(tabId);
+    $('#day-rail').hidden = !visible;
+    $('#app-body').classList.toggle('app-body--rail', visible);
+  },
+};
+
+const DashboardUI = {
   status(meta, pct) {
     if (meta.isLimit) return pct <= 100 ? ['ok', 'Within limit'] : ['danger', 'Over limit'];
     if (meta.key === 'calories') {
@@ -2159,6 +2191,7 @@ const DashboardUI = {
     $('#macro-list').innerHTML = NUTRIENTS.filter((m) => m.group === 'macro').map((m) => this.row(m, intake[m.key], targets[m.key])).join('');
     $('#micro-list').innerHTML = NUTRIENTS.filter((m) => m.group === 'micro').map((m) => this.row(m, intake[m.key], targets[m.key])).join('');
     document.querySelectorAll('[data-day-label]').forEach((el) => { el.textContent = DAY_LABELS[state.viewDay]; });
+    $('#dashboard-day').textContent = state.viewDay === todayKey() ? 'Today’s' : `${DAY_LABELS[state.viewDay]}’s`;
     return { intake, targets, plannedCount: planned.length, meals };
   },
 };
@@ -2299,8 +2332,7 @@ const ScheduleUI = {
         <input type="checkbox" id="supp-${s.id}" name="supplements" value="${s.id}">
         <label for="supp-${s.id}">${s.label}</label>
       </div>`).join('');
-    $('#supplement-form').addEventListener('change', (e) => {
-      if (e.target.matches('[data-day-select]')) return;
+    $('#supplement-form').addEventListener('change', () => {
       state.supplements = {
         selected: [...document.querySelectorAll('input[name="supplements"]:checked')].map((i) => i.value),
         coffeeAtBreakfast: $('#coffee-breakfast').checked,
@@ -2511,7 +2543,7 @@ const App = {
     AuthView.init();
     OnboardingWizard.init();
     ProfileDrawer.init();
-    DashboardUI.init();
+    DayRail.init();
     RecipeLibrary.init();
     PlannerUI.init();
     ScheduleUI.init();
@@ -2525,6 +2557,7 @@ const App = {
     });
     this.tabs = new Tabs($('#app-tablist'), {
       onChange: (id) => {
+        DayRail.toggleFor(id);
         state.ui = { ...state.ui, tab: id };
         if (state.account) Storage.save(Storage.KEYS.ui, state.ui);
       },
@@ -2570,7 +2603,6 @@ const App = {
 
   setViewDay(day) {
     state.viewDay = day;
-    document.querySelectorAll('[data-day-select]').forEach((select) => { select.value = day; });
     this.renderNutrition();
   },
 
@@ -2584,7 +2616,7 @@ const App = {
 
   /** Re-renders everything derived from targets and the viewed day. */
   renderNutrition() {
-    document.querySelectorAll('[data-day-select]').forEach((select) => { select.value = state.viewDay; });
+    DayRail.sync();
     TargetsUI.render();
     const day = DashboardUI.render();
     RecommendationsUI.render(day);

@@ -415,21 +415,23 @@
         </div>
       </nav>
 
+      <div id="app-body" class="app-body app-body--rail">
+      <!-- Day rail: one control for the dashboard and the timed schedule -->
+      <fieldset id="day-rail" class="day-rail">
+        <legend class="sr-only">Day to view</legend>
+        <div id="day-rail-list" class="day-rail__list"></div>
+      </fieldset>
+
+      <div class="app-panels">
       <!-- Panel: Dashboard & Targets -->
       <div id="panel-dashboard" class="tab-panel" role="tabpanel" aria-labelledby="tab-dashboard">
         <section class="section section--sky" aria-labelledby="dashboard-title">
           <svg class="botanical botanical--edge-right" aria-hidden="true" focusable="false"><use href="#branch"/></svg>
           <header class="section__header">
-            <h2 id="dashboard-title" class="section__title">Today's <em>cup of nutrients</em></h2>
+            <h2 id="dashboard-title" class="section__title"><span id="dashboard-day">Today’s</span> <em>cup of nutrients</em></h2>
             <p class="section__intro">Intake is one serving of each meal planned for the selected day, after allergy and diet swaps.</p>
           </header>
-          <div class="toolbar card">
-            <div class="field field--inline">
-              <label for="view-day">Viewing day</label>
-              <select id="view-day" data-day-select></select>
-            </div>
-            <p id="dashboard-summary" class="toolbar__summary" aria-live="polite"></p>
-          </div>
+          <p id="dashboard-summary" class="toolbar card toolbar__summary" aria-live="polite"></p>
           <div class="two-col">
             <article class="card" aria-labelledby="macro-title">
               <h3 id="macro-title">Macronutrients</h3>
@@ -500,14 +502,10 @@
         <section class="section" aria-labelledby="schedule-title">
           <header class="section__header">
             <h2 id="schedule-title" class="section__title">A gentle rhythm <em>for the day</em></h2>
-            <p class="section__intro">Supplements placed by absorption rules: fat-soluble vitamins with your fattiest meal, iron with vitamin C and away from calcium and coffee, magnesium in the evening.</p>
+            <p class="section__intro">Timeline for <span data-day-label></span>, chosen in the day rail. Supplements placed by absorption rules: fat-soluble vitamins with your fattiest meal, iron with vitamin C and away from calcium and coffee, magnesium in the evening.</p>
           </header>
           <div class="split">
             <form id="supplement-form" class="card form" aria-labelledby="supplement-legend">
-              <div class="field">
-                <label for="schedule-day">Schedule for</label>
-                <select id="schedule-day" data-day-select></select>
-              </div>
               <fieldset class="field-group">
                 <legend id="supplement-legend">Supplements you take</legend>
                 <div id="supplement-options" class="check-grid"></div>
@@ -543,6 +541,8 @@
           </div>
           <div id="grocery-list" class="card-grid"></div>
         </section>
+      </div>
+      </div>
       </div>
     </div>
   </main>

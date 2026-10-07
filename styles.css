@@ -751,6 +751,76 @@ textarea {
   animation: view-in 0.25s ease both;
 }
 
+/* ---------- Day rail ---------- */
+.day-rail {
+  min-width: 0;
+  margin: 0;
+  padding: var(--space-3) var(--gutter);
+  border: 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.day-rail__list {
+  position: relative; /* contains the visually hidden radios inside the scroller */
+  display: flex;
+  gap: var(--space-2);
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.day-rail__input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.day-rail__day {
+  display: grid;
+  justify-items: center;
+  flex: none;
+  min-width: 3.75rem;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  color: var(--ink-muted);
+  line-height: 1.2;
+  cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.day-rail__day:hover {
+  background: var(--surface-2);
+}
+
+.day-rail__weekday,
+.day-rail__month {
+  font-size: 0.75rem;
+}
+
+.day-rail__date {
+  font-family: var(--font-serif);
+  font-size: var(--step-2);
+  line-height: 1.1;
+}
+
+.day-rail__day.is-today .day-rail__weekday {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.day-rail__input:checked + .day-rail__day {
+  background: var(--surface);
+  border-color: var(--line);
+  box-shadow: var(--shadow);
+  color: var(--ink);
+}
+
+.day-rail__input:focus-visible + .day-rail__day {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
 /* ---------- Botanical decorations ---------- */
 .botanical {
   position: absolute;
@@ -1663,6 +1733,28 @@ textarea {
     grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
     align-items: start;
   }
+
+  .app-body--rail {
+    display: grid;
+    grid-template-columns: 6rem minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .day-rail {
+    position: sticky;
+    top: 4.5rem;
+    padding: var(--space-6) var(--space-2) var(--space-4) var(--space-4);
+    border-bottom: 0;
+  }
+
+  .day-rail__list {
+    flex-direction: column;
+    overflow: visible;
+  }
+
+  .day-rail__day {
+    min-width: 0;
+  }
 }
 
 @media (max-width: 30em) {
@@ -1715,6 +1807,7 @@ textarea {
 
   .segmented input:checked + label,
   .choice input:checked + label,
+  .day-rail__input:checked + .day-rail__day,
   .tabs-segmented [aria-selected="true"],
   .app-tabs [aria-selected="true"] {
     outline: 2px solid Highlight;
