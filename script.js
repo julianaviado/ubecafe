@@ -394,57 +394,57 @@ const SUPPLEMENT_BY_ID = Object.fromEntries(SUPPLEMENTS.map((s) => [s.id, s]));
 
 const SEED_RECIPES = [
   {
-    id: 'seed-oats', title: 'Berry Chia Overnight Oats', servings: 1, prepMinutes: 5,
+    id: 'seed-oats', title: 'Berry Chia Overnight Oats', servings: 1, prepMinutes: 5, cookMinutes: 0,
     ingredientsText: '1/2 cup rolled oats\n1/2 cup milk\n1/2 cup greek yogurt\n1 tbsp chia seeds\n1/2 cup blueberries\n1 tsp honey',
     instructions: 'Stir everything together in a jar.\nRefrigerate overnight and serve cold.',
   },
   {
-    id: 'seed-scramble', title: 'Garden Veggie Egg Scramble', servings: 1, prepMinutes: 10,
+    id: 'seed-scramble', title: 'Garden Veggie Egg Scramble', servings: 1, prepMinutes: 5, cookMinutes: 8,
     ingredientsText: '3 large eggs\n1 cup spinach\n1/2 red bell pepper, diced\n1 slice whole wheat bread\n1 tsp olive oil',
     instructions: 'Sauté pepper in oil for 3 minutes.\nAdd spinach until wilted, then scramble in the eggs.\nServe with toast.',
   },
   {
-    id: 'seed-salmon', title: 'Lemon Herb Salmon & Quinoa', servings: 2, prepMinutes: 25,
+    id: 'seed-salmon', title: 'Lemon Herb Salmon & Quinoa', servings: 2, prepMinutes: 10, cookMinutes: 15,
     ingredientsText: '2 salmon fillets\n1/2 cup quinoa\n2 cups broccoli\n1 tbsp olive oil\n1 lemon\n2 cloves garlic, minced',
     instructions: 'Cook quinoa in 1 cup water for 15 minutes.\nRoast salmon and broccoli with oil, garlic and lemon at 200°C for 14 minutes.',
   },
   {
-    id: 'seed-soup', title: 'Lentil & Spinach Soup', servings: 4, prepMinutes: 35,
+    id: 'seed-soup', title: 'Lentil & Spinach Soup', servings: 4, prepMinutes: 10, cookMinutes: 25,
     ingredientsText: '1 cup red lentils\n4 cups vegetable broth\n1 onion, chopped\n2 carrots, diced\n3 cloves garlic\n3 cups spinach\n1 can diced tomatoes\n1 tsp cumin\n1 tbsp olive oil\n1/2 tsp salt',
     instructions: 'Soften onion, carrot and garlic in oil.\nAdd lentils, broth, tomatoes and cumin; simmer 20 minutes.\nStir in spinach and salt.',
   },
   {
-    id: 'seed-chicken', title: 'Roast Chicken & Sweet Potato Plate', servings: 2, prepMinutes: 35,
+    id: 'seed-chicken', title: 'Roast Chicken & Sweet Potato Plate', servings: 2, prepMinutes: 10, cookMinutes: 25,
     ingredientsText: '300 g chicken breast\n2 sweet potatoes, cubed\n2 cups broccoli\n1 tbsp olive oil\n1/2 tsp black pepper',
     instructions: 'Toss everything with oil and pepper.\nRoast at 210°C for 25 minutes.',
   },
   {
-    id: 'seed-bowl', title: 'Black Bean Burrito Bowl', servings: 2, prepMinutes: 20,
+    id: 'seed-bowl', title: 'Black Bean Burrito Bowl', servings: 2, prepMinutes: 10, cookMinutes: 25,
     ingredientsText: '1 can black beans, drained\n1/2 cup brown rice\n1 avocado\n1 tomato, diced\n1/4 cup cheddar cheese\n1/2 onion\n1 tsp cumin\n1 lime',
     instructions: 'Cook rice.\nWarm beans with cumin.\nAssemble bowls with avocado, tomato, onion, cheese and lime.',
   },
   {
-    id: 'seed-yogurt', title: 'Greek Yogurt Seed Crunch', servings: 1, category: 'snack', prepMinutes: 5,
+    id: 'seed-yogurt', title: 'Greek Yogurt Seed Crunch', servings: 1, category: 'snack', prepMinutes: 5, cookMinutes: 0,
     ingredientsText: '1 cup greek yogurt\n1/2 cup strawberries\n1 tbsp pumpkin seeds\n1 tbsp walnuts',
     instructions: 'Layer yogurt, berries, seeds and walnuts in a bowl.',
   },
   {
-    id: 'seed-apple', title: 'Apple & Peanut Butter', servings: 1, category: 'snack', prepMinutes: 3,
+    id: 'seed-apple', title: 'Apple & Peanut Butter', servings: 1, category: 'snack', prepMinutes: 3, cookMinutes: 0,
     ingredientsText: '1 apple, sliced\n2 tbsp peanut butter\n1 pinch cinnamon',
     instructions: 'Slice apple and serve with peanut butter dusted with cinnamon.',
   },
   {
-    id: 'seed-juice', title: 'Orange Ginger Sunrise Juice', servings: 2, category: 'drink', prepMinutes: 10,
+    id: 'seed-juice', title: 'Orange Ginger Sunrise Juice', servings: 2, category: 'drink', prepMinutes: 10, cookMinutes: 0,
     ingredientsText: '1/4 cup orange juice\n3 tbsp lemon juice\n1 small apple, cored and quartered\n1 tbsp fresh ginger, peeled\n4 whole carrots',
     instructions: 'Juice the apple, ginger and carrots.\nStir in the orange and lemon juice and serve over ice.',
   },
   {
-    id: 'seed-broccoli', title: 'Garlic Roasted Broccoli', servings: 2, category: 'side', prepMinutes: 20,
+    id: 'seed-broccoli', title: 'Garlic Roasted Broccoli', servings: 2, category: 'side', prepMinutes: 5, cookMinutes: 15,
     ingredientsText: '3 cups broccoli florets\n1 tbsp olive oil\n2 cloves garlic, sliced\n1 pinch salt',
     instructions: 'Toss everything together and roast at 220°C for 15 minutes.',
   },
   {
-    id: 'seed-pudding', title: 'Strawberry Chia Pudding', servings: 2, category: 'dessert', prepMinutes: 5,
+    id: 'seed-pudding', title: 'Strawberry Chia Pudding', servings: 2, category: 'dessert', prepMinutes: 5, cookMinutes: 0,
     ingredientsText: '1 cup milk\n3 tbsp chia seeds\n1 cup strawberries\n1 tsp honey',
     instructions: 'Whisk milk, chia and honey; chill for 4 hours.\nTop with sliced strawberries.',
   },
@@ -469,11 +469,19 @@ const COURSE_ICONS = {
 };
 const courseIcon = (kind) => `<svg class="course-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${COURSE_ICONS[kind]}</svg>`;
 const courseBadge = (kind) => `<span class="course-badge course-badge--${kind}">${courseIcon(kind)}${COURSES[kind].label}</span>`;
-const formatPrep = (minutes) => {
-  if (!minutes) return 'Prep time not set';
+const formatMinutes = (minutes) => {
   const h = Math.floor(minutes / 60);
   const m = minutes % 60;
   return `${h ? `${h} h ` : ''}${m ? `${m} min` : ''}`.trim();
+};
+
+/** "Prep 10 min · Cook 15 min"; a cook time of 0 reads "No cooking". */
+const formatTimes = ({ prepMinutes, cookMinutes }) => {
+  const parts = [];
+  if (prepMinutes) parts.push(`Prep ${formatMinutes(prepMinutes)}`);
+  if (cookMinutes === 0) parts.push('No cooking');
+  else if (cookMinutes) parts.push(`Cook ${formatMinutes(cookMinutes)}`);
+  return parts.join(' · ') || 'Times not set';
 };
 const courseOf = (recipe) => recipe.category ?? 'main';
 
@@ -506,9 +514,9 @@ const normalizePlan = (plan) => {
 
 /** Deterministic sample texts returned by the simulated OCR step. */
 const OCR_SAMPLES = [
-  'Title: Kale & Chickpea Power Salad\nServings: 2\nPrep time: 20 min\nIngredients:\n- 3 cups kale\n- 1 can chickpeas, drained\n- 1/2 cup quinoa\n- 1 red bell pepper\n- 2 tbsp olive oil\n- 1 lemon\n- 2 tbsp pumpkin seeds\nInstructions:\n1. Cook quinoa and let it cool.\n2. Massage kale with oil and lemon.\n3. Toss with chickpeas, pepper, quinoa and seeds.',
-  'Title: Sheet-Pan Salmon & Sweet Potato\nServes 2\nTotal time: 35 minutes\nIngredients\n• 2 salmon fillets (6 oz each)\n• 2 sweet potatoes\n• 2 cups broccoli\n• 1 tbsp olive oil\n• 1/2 tsp black pepper\nDirections\n1. Cube the sweet potatoes and roast 15 minutes at 220°C.\n2. Add salmon and broccoli; roast 12 minutes more.',
-  'Title: Peanut Butter Banana Oat Smoothie\nServings: 1\nPrep: 5 min\nIngredients:\n- 1 banana\n- 1 cup milk\n- 1/4 cup rolled oats\n- 1 tbsp peanut butter\n- 1 tsp chia seeds\nInstructions:\n1. Blend everything until smooth.',
+  'Title: Kale & Chickpea Power Salad\nServings: 2\nPrep time: 20 min\nCook time: 15 min\nIngredients:\n- 3 cups kale\n- 1 can chickpeas, drained\n- 1/2 cup quinoa\n- 1 red bell pepper\n- 2 tbsp olive oil\n- 1 lemon\n- 2 tbsp pumpkin seeds\nInstructions:\n1. Cook quinoa and let it cool.\n2. Massage kale with oil and lemon.\n3. Toss with chickpeas, pepper, quinoa and seeds.',
+  'Title: Sheet-Pan Salmon & Sweet Potato\nServes 2\nPrep time: 10 minutes\nCook time: 27 minutes\nIngredients\n• 2 salmon fillets (6 oz each)\n• 2 sweet potatoes\n• 2 cups broccoli\n• 1 tbsp olive oil\n• 1/2 tsp black pepper\nDirections\n1. Cube the sweet potatoes and roast 15 minutes at 220°C.\n2. Add salmon and broccoli; roast 12 minutes more.',
+  'Title: Peanut Butter Banana Oat Smoothie\nServings: 1\nPrep: 5 min\nCook: none\nIngredients:\n- 1 banana\n- 1 cup milk\n- 1/4 cup rolled oats\n- 1 tbsp peanut butter\n- 1 tsp chia seeds\nInstructions:\n1. Blend everything until smooth.',
 ];
 
 const DEFAULT_PROFILE = {
@@ -845,6 +853,8 @@ class RecipeManager {
     let title = '';
     let servings = null;
     let prepMinutes = null;
+    let cookMinutes = null;
+    let totalMinutes = null;
     let mode = null;
     const ingredients = [];
     const instructions = [];
@@ -852,13 +862,17 @@ class RecipeManager {
     text.split(/\r?\n/).map((l) => l.trim()).filter(Boolean).forEach((line) => {
       const titleMatch = line.match(/^title\s*[:-]\s*(.+)$/i);
       const servingsMatch = line.match(/^(?:servings?|serves|yield|makes)\s*[:-]?\s*(\d+)/i);
-      const timeMatch = line.match(/^(?:prep(?:aration)?|total|ready in)(?:\s*time)?\s*[:-]\s*(.+)$/i);
+      const timeMatch = line.match(/^(prep(?:aration)?|cook(?:ing)?|total|ready in)(?:\s*time)?\s*[:-]\s*(.+)$/i);
       if (titleMatch) {
         title = titleMatch[1];
       } else if (timeMatch) {
-        const hours = Number(timeMatch[1].match(/(\d+)\s*h/i)?.[1] ?? 0);
-        const mins = Number(timeMatch[1].match(/(\d+)\s*m/i)?.[1] ?? 0);
-        prepMinutes = hours * 60 + mins || null;
+        const hours = Number(timeMatch[2].match(/(\d+)\s*h/i)?.[1] ?? 0);
+        const mins = Number(timeMatch[2].match(/(\d+)\s*m/i)?.[1] ?? 0);
+        const minutes = hours * 60 + mins;
+        const kind = timeMatch[1].toLowerCase();
+        if (kind.startsWith('prep')) prepMinutes = minutes || null;
+        else if (kind.startsWith('cook')) cookMinutes = minutes; // "Cook: none" → 0, i.e. no cooking
+        else totalMinutes = minutes || null;
       } else if (servingsMatch) {
         servings = Number(servingsMatch[1]);
       } else if (/^ingredients?\s*:?$/i.test(line)) {
@@ -874,7 +888,9 @@ class RecipeManager {
       }
     });
 
-    return { title, servings: servings ?? 1, prepMinutes, ingredientsText: ingredients.join('\n'), instructions: instructions.join('\n') };
+    // A lone "Total time" is treated as prep when prep and cook are not given separately.
+    if (prepMinutes === null && cookMinutes === null) prepMinutes = totalMinutes;
+    return { title, servings: servings ?? 1, prepMinutes, cookMinutes, ingredientsText: ingredients.join('\n'), instructions: instructions.join('\n') };
   }
 }
 
@@ -1638,8 +1654,14 @@ class RecipeImporter {
           </div>
           <div class="field">
             <label for="${p}-prep">Prep time <span class="field__hint">(min)</span></label>
-            <input type="number" id="${p}-prep" min="1" max="600" step="1" inputmode="numeric" aria-describedby="${p}-prep-error">
+            <input type="number" id="${p}-prep" min="0" max="600" step="1" inputmode="numeric" aria-describedby="${p}-prep-error">
             <p id="${p}-prep-error" class="field-error"></p>
+          </div>
+          <div class="field">
+            <label for="${p}-cook">Cook time <span class="field__hint">(min)</span></label>
+            <input type="number" id="${p}-cook" min="0" max="600" step="1" inputmode="numeric" aria-describedby="${p}-cook-hint ${p}-cook-error">
+            <p id="${p}-cook-hint" class="field__hint">Use 0 for no cooking.</p>
+            <p id="${p}-cook-error" class="field-error"></p>
           </div>
         </div>
         <div class="form__grid">
@@ -1702,6 +1724,7 @@ class RecipeImporter {
       servings: Number(this.el('servings').value),
       category: this.el('course').value,
       prepMinutes: this.el('prep').value === '' ? null : Number(this.el('prep').value),
+      cookMinutes: this.el('cook').value === '' ? null : Number(this.el('cook').value),
       ingredientsText: this.el('ingredients').value.trim(),
       instructions: this.el('instructions').value.trim(),
     };
@@ -1712,6 +1735,7 @@ class RecipeImporter {
     this.el('servings').value = recipe.servings;
     this.el('course').value = courseOf(recipe);
     this.el('prep').value = recipe.prepMinutes ?? '';
+    this.el('cook').value = recipe.cookMinutes ?? '';
     this.el('ingredients').value = recipe.ingredientsText;
     this.el('instructions').value = recipe.instructions;
   }
@@ -1813,7 +1837,8 @@ class RecipeImporter {
       [this.el('title'), recipe.title.length > 0, 'Enter a recipe title.'],
       [this.el('servings'), recipe.servings >= 1 && recipe.servings <= 50, 'Enter servings between 1 and 50.'],
       [this.el('ingredients'), recipe.ingredientsText.length > 0, 'Add at least one ingredient.'],
-      [this.el('prep'), recipe.prepMinutes === null || (recipe.prepMinutes >= 1 && recipe.prepMinutes <= 600), 'Enter minutes between 1 and 600, or leave it blank.'],
+      [this.el('prep'), recipe.prepMinutes === null || (recipe.prepMinutes >= 0 && recipe.prepMinutes <= 600), 'Enter minutes between 0 and 600, or leave it blank.'],
+      [this.el('cook'), recipe.cookMinutes === null || (recipe.cookMinutes >= 0 && recipe.cookMinutes <= 600), 'Enter minutes between 0 and 600, or leave it blank.'],
     ];
     let first = null;
     checks.forEach(([input, ok, message]) => {
@@ -2174,7 +2199,7 @@ const RecipeLibrary = {
         <li>
           <article class="card recipe-card">
             <h3>${title}</h3>
-            <p class="meta">${COURSES[courseOf(recipe)].label} · ${formatPrep(recipe.prepMinutes)} · ${recipe.servings} serving${recipe.servings === 1 ? '' : 's'} · per serving${isSafe && flagged.length ? ', with your swaps' : ''}</p>
+            <p class="meta">${COURSES[courseOf(recipe)].label} · ${formatTimes(recipe)} · ${recipe.servings} serving${recipe.servings === 1 ? '' : 's'} · per serving${isSafe && flagged.length ? ', with your swaps' : ''}</p>
             <dl class="macro-chips">
               <div><dt>kcal</dt><dd>${fmt(p.calories)}</dd></div>
               <div><dt>Protein</dt><dd>${fmt(p.protein)} g</dd></div>
@@ -2593,7 +2618,8 @@ const PlannerUI = {
             <span class="palette-item__body">
               <span class="palette-item__title">${escapeHTML(recipe.title)}</span>
               <span class="palette-item__meta">${courseBadge(kind)}</span>
-              <span class="palette-item__meta">${formatPrep(recipe.prepMinutes)} · ${fmt(perServing.calories)} kcal · ${fmt(perServing.protein)} g protein</span>
+              <span class="palette-item__meta">${formatTimes(recipe)}</span>
+              <span class="palette-item__meta">${fmt(perServing.calories)} kcal · ${fmt(perServing.protein)} g protein</span>
               ${status}
             </span>
           </div>

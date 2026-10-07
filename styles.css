@@ -2073,7 +2073,7 @@ textarea {
   }
 
   .form__grid--title {
-    grid-template-columns: 3fr 1fr 1.4fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .form__grid--four {
@@ -2102,6 +2102,10 @@ textarea {
   .split {
     grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
     align-items: start;
+  }
+
+  .form__grid--title {
+    grid-template-columns: minmax(0, 2.4fr) repeat(4, minmax(0, 1fr));
   }
 
   /* Shelf is first in reading order but sits on the right, like the reference palette. */
